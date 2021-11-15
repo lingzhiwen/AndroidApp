@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zjp.mine">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name="com.zjp.mine.activity.AboutAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OpenSourceProjActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LeaderboardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyCollectArticleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyIntergralActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyShareActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddArticleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutMeActivity"
+            android:screenOrientation="portrait" />
+    </application>
+</manifest>

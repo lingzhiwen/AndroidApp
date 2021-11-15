@@ -1,0 +1,91 @@
+ext {
+
+    androidId = [
+            compileSdkVersion: 30,
+            buildToolsVersion: '30.0.3',
+            applicationId    : "com.zjp.wandroid",
+            minSdkVersion    : 21,
+            targetSdkVersion : 30,
+            versionCode      : 3,
+            versionName      : "1.2.1",
+    ]
+
+    version = [
+            appcompatVersion: "1.2.0",
+            constraintlayout: "2.0.4",
+            materialVersion : "1.3.0",
+    ]
+
+    androidXTest = [
+            "junit"                               : "junit:junit:4.13.2",
+            "androidx.test.ext_junit"             : "androidx.test.ext:junit:1.1.2",
+            "androidx.test.espresso:espresso_core": "androidx.test.espresso:espresso-core:3.3.0",
+    ]
+
+    androidx = [
+            "appcompat"       : "androidx.appcompat:appcompat:${version["appcompatVersion"]}",
+            "constraintlayout": "androidx.constraintlayout:constraintlayout:${version["constraintlayout"]}",
+            "material"        : "com.google.android.material:material:${version["materialVersion"]}",
+            "lifecycle"       : "androidx.lifecycle:lifecycle-extensions:2.1.0",
+    ]
+
+    dependencies = [
+
+            //retrofit
+            "retrofit"                     : "com.squareup.retrofit2:retrofit:2.9.0",
+            "converter_gson"               : "com.squareup.retrofit2:converter-gson:2.9.0",
+            "adapter_rxjava"               : "com.squareup.retrofit2:adapter-rxjava2:2.9.0",
+            "converter_scalars"            : "com.squareup.retrofit2:converter-scalars:2.9.0",
+
+            //okhttp
+            "okhttp"                       : "com.squareup.okhttp3:okhttp:4.7.2",
+            "logging_interceptor"          : "com.squareup.okhttp3:logging-interceptor:4.7.2",
+
+            //rxjava
+            "rxjava"                       : "io.reactivex.rxjava2:rxjava:2.2.19",
+            "rxandroid"                    : "io.reactivex.rxjava2:rxandroid:2.1.1",
+
+            "lifecycle"                    : "androidx.lifecycle:lifecycle-extensions:2.2.0",
+
+            "arouter_api"                  : "com.alibaba:arouter-api:1.5.0",
+            "arouter_compiler"             : "com.alibaba:arouter-compiler:1.2.2",
+
+            //banner
+            "banner"                       : "com.youth.banner:banner:2.1.0",
+
+            //refresh
+            "refreshlayout"                : "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0",
+
+            //glide
+            "glide"                        : "com.github.bumptech.glide:glide:4.11.0",
+
+            "immersionbar"                 : "com.gyf.immersionbar:immersionbar:3.0.0",
+
+            "loadsir"                      : "com.kingja.loadsir:loadsir:1.3.6",
+            "utilcodex"                    : "com.blankj:utilcodex:1.30.0",
+            "baseadapterhelper"            : "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",
+
+            "navigation_fragment"          : "androidx.navigation:navigation-fragment:2.3.0-alpha06",
+            "navigation_ui"                : "androidx.navigation:navigation-ui:2.3.0-alpha06",
+
+            "mmkv"                         : "com.tencent:mmkv:1.2.1",
+
+            "smartRefreshLayout"           : "com.scwang.smartrefresh:SmartRefreshLayout:1.1.2",
+            "smartheadRefreshLayout"       : "com.scwang.smartrefresh:SmartRefreshHeader:1.1.2",
+
+            "flexbox"                      : "com.google.android:flexbox:2.0.1",
+            "agentweb"                     : "com.just.agentweb:agentweb:4.1.3",
+
+            "magicindicator"               : "com.github.hackware1993:MagicIndicator:1.6.0",
+
+            "particleview"                 : "me.wangyuwei:ParticleView:1.0.4",
+            "aspectjrt"                    : "org.aspectj:aspectjrt:1.9.5",
+            "cooiejar"                     : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
+
+            "eventbus"                     : "org.greenrobot:eventbus:3.2.0",
+
+//            "material_dialogs_core"        : "com.afollestad.material-dialogs:core:3.3.0",
+//            "material_dialogs_bottomsheets": "com.afollestad.material-dialogs:bottomsheets:3.3.0",
+
+    ]
+}

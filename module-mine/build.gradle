@@ -1,0 +1,22 @@
+apply from: "../module.build.gradle"
+apply plugin: 'android-aspectjx'
+
+def support = rootProject.ext.dependencies
+
+android {
+    defaultConfig {
+        if (isMainModule.toBoolean()) {
+            applicationId "com.zjp.mine"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':library-common')
+    implementation project(':library-aop')
+    annotationProcessor support.arouter_compiler
+//    implementation support.material_dialogs_core //弃用该dialog
+//    implementation support.material_dialogs_bottomsheets
+
+}

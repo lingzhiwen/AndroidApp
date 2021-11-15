@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_bg"
+    android:paddingBottom="@dimen/dp10">
+
+    <View
+        android:id="@+id/view_label"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp40"
+        android:background="@mipmap/top_label"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/l_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp24"
+        android:layout_marginTop="@dimen/dp15"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_new"
+            style="@style/textview_13sp_style"
+            android:layout_marginRight="@dimen/dp5"
+            android:text="新"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_author"
+            style="@style/textview_13sp_style"
+            android:textColor="@color/c_666666"
+            tools:text="作者" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tag"
+            style="@style/textview_11sp_style"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/selector_article_tag_bg"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"
+            tools:text="本站发布" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_date"
+        style="@style/textview_11sp_style"
+        android:layout_marginRight="@dimen/dp22"
+        android:textColor="@color/c_bbbbbb"
+        app:layout_constraintBottom_toBottomOf="@+id/l_author"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/l_author"
+        tools:text="2013-34" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="@dimen/dp0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp15"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/dp3"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15"
+        app:layout_constraintLeft_toLeftOf="@+id/l_author"
+        app:layout_constraintRight_toRightOf="@+id/tv_date"
+        app:layout_constraintTop_toBottomOf="@+id/l_author"
+        tools:text="android 沉淀 - 渲染原理" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_chapter_name"
+        style="@style/textview_12sp_style"
+        android:layout_marginTop="@dimen/dp10"
+        android:textColor="@color/c_999999"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/l_author"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:text="干货资源" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_collect"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
+        android:padding="@dimen/dp5"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_chapter_name"
+        app:layout_constraintRight_toRightOf="@+id/tv_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_chapter_name"
+        tools:background="@mipmap/article_collect" />
+</androidx.constraintlayout.widget.ConstraintLayout>

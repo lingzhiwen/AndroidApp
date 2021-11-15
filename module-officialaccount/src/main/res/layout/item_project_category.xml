@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="category"
+            type="com.zjp.common.bean.ProjectTabBean" />
+    </data>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        select="@{category.select}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_category_color"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp10"
+        android:paddingTop="@dimen/dp20"
+        android:paddingRight="@dimen/dp10"
+        android:paddingBottom="@dimen/dp20"
+        android:text="@{category.name}"
+        android:textColor="@color/textcolor_category"
+        android:textSize="@dimen/sp13"
+        tools:text="测试测试" />
+</layout>

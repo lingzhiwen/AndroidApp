@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.LoginActivity">
+
+        <com.zjp.common.view.CommonHeadTitle
+            android:id="@+id/head_title"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <fragment
+            android:id="@+id/container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="@dimen/dp0"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginBottom="@dimen/dp20"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@+id/tv_other_platform"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/head_title"
+            app:navGraph="@navigation/revise_graph" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_other_platform"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp20"
+            android:gravity="center"
+            android:text="———————————  third login  ———————————"
+            app:layout_constraintBottom_toTopOf="@+id/c_other_platform"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/c_other_platform"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp30"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_qq_login"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40"
+                android:background="@mipmap/qq_login"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/iv_wx_login"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginRight="@dimen/dp30"
+                android:background="@mipmap/wx_login"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_qq_login"
+                app:layout_constraintRight_toLeftOf="@+id/iv_qq_login"
+                app:layout_constraintTop_toTopOf="@+id/iv_qq_login" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_wb_login"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40"
+                android:layout_marginLeft="@dimen/dp30"
+                android:background="@mipmap/wb_login"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_qq_login"
+                app:layout_constraintLeft_toRightOf="@+id/iv_qq_login"
+                app:layout_constraintTop_toTopOf="@+id/iv_qq_login" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

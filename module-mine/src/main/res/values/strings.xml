@@ -1,0 +1,16 @@
+<resources>
+
+    <!--设置 page-->
+    <string name="setting_base">基本设置</string>
+    <string name="show_top">显示置顶</string>
+    <string name="show_top_article">开启后首页显示置顶文章</string>
+
+    <string name="clear_cache">确定要清除缓存吗？</string>
+    <string name="login_out_tips">确定退出登录吗？</string>
+    <string name="tips">提示</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="copyright_tips">本App中所有的Api均由WanAndroid官网提供，可作为学习参考，禁止作为商业用途</string>
+    <string name="warm_tips">温馨提示</string>
+    <string name="share_tips">确定分享吗？</string>
+</resources>
