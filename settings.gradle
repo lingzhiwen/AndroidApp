@@ -1,5 +1,5 @@
 include ':library-aop'
-rootProject.name = 'zjp-wandroid-master'
+rootProject.name = 'ling-wandroid'
 include ':app'
 include ':library-base'
 include ':library-common'

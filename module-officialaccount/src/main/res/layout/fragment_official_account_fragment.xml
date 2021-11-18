@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.zjp.officialaccount.viewmodel.OfficialAccountViewModel" />
+            type="com.ling.officialaccount.viewmodel.OfficialAccountViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:clickable="true"
-        tools:context=".fragment.OfficialAccountFragment">
+        tools:context="com.ling.officialaccount.fragment.OfficialAccountFragment">
 
         <View
             android:id="@+id/view_status"

@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="com.zjp.common.font.Font" />
+        <import type="com.ling.common.font.Font" />
     </data>
 
     <FrameLayout

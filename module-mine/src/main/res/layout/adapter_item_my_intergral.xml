@@ -7,9 +7,9 @@
 
         <variable
             name="userinfo"
-            type="com.zjp.common.bean.UserInfo" />
+            type="com.ling.common.bean.UserInfo" />
 
-        <import type="com.zjp.common.font.Font" />
+        <import type="com.ling.common.font.Font" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

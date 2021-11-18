@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/login_fragment"
-        android:name="com.zjp.login.fragment.LoginFragment"
+        android:name="com.ling.login.fragment.LoginFragment"
         android:label="fragment_login_label"
         tools:layout="@layout/fragment_login">
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/fragment_register"
-        android:name="com.zjp.login.fragment.RegisterFragment"
+        android:name="com.ling.login.fragment.RegisterFragment"
         android:label="fragment_register_label"
         tools:layout="@layout/fragment_register">
 

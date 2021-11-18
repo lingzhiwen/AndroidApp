@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zjp.home">
+    package="com.ling.home">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
 
 
         <activity
-            android:name=".activity.SearchActivity"
+            android:name="com.ling.home.activity.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zjp.common.ui.WebViewActivity"
+            android:name="com.ling.common.ui.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SearchResultActivity"
+            android:name="com.ling.home.activity.SearchResultActivity"
             android:screenOrientation="portrait" />
     </application>
 

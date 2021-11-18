@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.zjp.common.bean.ProjectTabBean" />
+            type="com.ling.common.bean.ProjectTabBean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

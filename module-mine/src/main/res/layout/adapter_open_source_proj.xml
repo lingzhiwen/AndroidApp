@@ -7,7 +7,7 @@
 
         <variable
             name="opensource"
-            type="com.zjp.mine.bean.OpenSourceProj" />
+            type="com.ling.mine.bean.OpenSourceProj" />
 
     </data>
 

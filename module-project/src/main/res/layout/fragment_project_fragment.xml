@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:clickable="true"
-        tools:context=".fragment.ProjectFragment">
+        tools:context="com.ling.project.fragment.ProjectFragment">
 
         <FrameLayout
             android:id="@+id/fl"
@@ -26,7 +26,7 @@
                 android:layout_marginTop="34dp" />
         </FrameLayout>
 
-        <com.zjp.common.view.NoAnimationViewpager
+        <com.ling.common.view.NoAnimationViewpager
             android:id="@+id/vp"
             android:layout_width="@dimen/dp0"
             android:layout_height="@dimen/dp0"

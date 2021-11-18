@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:clickable="true"
-        tools:context=".fragment.SquareFragment">
+        tools:context="com.ling.square.fragment.SquareFragment">
 
         <FrameLayout
             android:id="@+id/fl"

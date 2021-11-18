@@ -3,7 +3,7 @@ ext {
     androidId = [
             compileSdkVersion: 30,
             buildToolsVersion: '30.0.3',
-            applicationId    : "com.zjp.wandroid",
+            applicationId    : "com.ling.wandroid",
             minSdkVersion    : 21,
             targetSdkVersion : 30,
             versionCode      : 3,

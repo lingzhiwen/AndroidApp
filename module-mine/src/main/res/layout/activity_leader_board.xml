@@ -7,7 +7,7 @@
 
         <variable
             name="myself_intergral"
-            type="com.zjp.common.bean.UserInfo" />
+            type="com.ling.common.bean.UserInfo" />
 
         <import type="android.view.View" />
 
@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.zjp.common.view.CommonHeadTitle
+        <com.ling.common.view.CommonHeadTitle
             android:id="@+id/titleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

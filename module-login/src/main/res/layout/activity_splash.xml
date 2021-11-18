@@ -19,6 +19,6 @@
         pv:pv_particle_text_size="@dimen/sp16"
         pv:pv_spread_anim_time="1500"
         pv:pv_text_color="@color/white"
-        tools:context=".activity.SplashActivity" />
+        tools:context="com.ling.login.activity.SplashActivity" />
 
 </layout>

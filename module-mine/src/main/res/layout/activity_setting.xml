@@ -7,7 +7,7 @@
 
         <variable
             name="eventlistener"
-            type="com.zjp.mine.activity.SettingActivity.EventListener" />
+            type="com.ling.mine.activity.SettingActivity.EventListener" />
 
     </data>
 
@@ -17,7 +17,7 @@
         android:background="@color/c_f8f8f8"
         android:orientation="vertical">
 
-        <com.zjp.common.view.CommonHeadTitle
+        <com.ling.common.view.CommonHeadTitle
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

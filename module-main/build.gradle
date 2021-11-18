@@ -5,7 +5,7 @@ def support = rootProject.ext.dependencies
 android {
     defaultConfig {
         if (isMainModule.toBoolean()) {
-            applicationId "com.zjp.main"
+            applicationId "com.ling.main"
         }
     }
 }

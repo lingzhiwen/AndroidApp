@@ -7,11 +7,11 @@
 
         <variable
             name="eventlistener"
-            type="com.zjp.mine.activity.AboutAppActivity.EventListener" />
+            type="com.ling.mine.activity.AboutAppActivity.EventListener" />
 
         <variable
             name="url"
-            type="com.zjp.network.constant.C" />
+            type="com.ling.network.constant.C" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:background="@color/c_f8f8f8">
 
-        <com.zjp.common.view.CommonHeadTitle
+        <com.ling.common.view.CommonHeadTitle
             android:id="@+id/titleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

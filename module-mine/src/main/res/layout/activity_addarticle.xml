@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.zjp.common.view.CommonHeadTitle
+        <com.ling.common.view.CommonHeadTitle
             android:id="@+id/titleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp14" />
 
-                <com.zjp.common.view.SubmitBtnView
+                <com.ling.common.view.SubmitBtnView
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp44"

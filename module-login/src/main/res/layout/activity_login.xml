@@ -10,9 +10,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.LoginActivity">
+        tools:context="com.ling.login.activity.LoginActivity">
 
-        <com.zjp.common.view.CommonHeadTitle
+        <com.ling.common.view.CommonHeadTitle
             android:id="@+id/head_title"
             android:layout_width="@dimen/dp0"
             android:layout_height="wrap_content"

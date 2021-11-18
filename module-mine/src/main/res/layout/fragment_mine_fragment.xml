@@ -7,7 +7,7 @@
 
         <variable
             name="eventlistener"
-            type="com.zjp.mine.fragment.MineFragment.EventListener" />
+            type="com.ling.mine.fragment.MineFragment.EventListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:clickable="true"
-        tools:context=".fragment.MineFragment">
+        tools:context="com.ling.mine.fragment.MineFragment">
 
         <View
             android:layout_width="@dimen/dp0"
@@ -45,7 +45,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.zjp.mine.widget.WaveView
+            <com.ling.mine.widget.WaveView
                 android:id="@+id/waveview"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp15"

@@ -7,7 +7,7 @@
 
         <variable
             name="navibean"
-            type="com.zjp.square.bean.NaviBean" />
+            type="com.ling.square.bean.NaviBean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

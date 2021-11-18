@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zjp.mine">
+    package="com.ling.mine">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,34 +14,34 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.zjp.mine.activity.AboutAppActivity"
+            android:name="com.ling.mine.activity.AboutAppActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.OpenSourceProjActivity"
+            android:name="com.ling.mine.activity.OpenSourceProjActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name="com.ling.mine.activity.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LeaderboardActivity"
+            android:name="com.ling.mine.activity.LeaderboardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyCollectArticleActivity"
+            android:name="com.ling.mine.activity.MyCollectArticleActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.UserCenterActivity"
+            android:name="com.ling.mine.activity.UserCenterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyIntergralActivity"
+            android:name="com.ling.mine.activity.MyIntergralActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyShareActivity"
+            android:name="com.ling.mine.activity.MyShareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AddArticleActivity"
+            android:name="com.ling.mine.activity.AddArticleActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AboutMeActivity"
+            android:name="com.ling.mine.activity.AboutMeActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>
