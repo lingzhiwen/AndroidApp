@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -23,7 +24,7 @@ import com.ling.project.viewmodel.ProjectViewModel;
 /**
  * Created by zjp on 2020/7/1 10:17
  */
-public class ProjectListFragment extends BaseLazyFragment<FragmentProjectListBinding, ProjectViewModel>
+public class ProjectListFragment extends BaseLazyFragment<ProjectViewModel>
         implements OnRefreshLoadMoreListener {
 
     private int id;
@@ -39,6 +40,8 @@ public class ProjectListFragment extends BaseLazyFragment<FragmentProjectListBin
 
     //记录当前点击收藏的position
     private int currentPosition = 0;
+    private RecyclerView recy;
+    private RefreshLayout refresh;
 
     public static ProjectListFragment newInstance(int id) {
         ProjectListFragment projectListFragment = new ProjectListFragment();
@@ -64,15 +67,17 @@ public class ProjectListFragment extends BaseLazyFragment<FragmentProjectListBin
     @Override
     protected void initView() {
         super.initView();
+        recy = getView().findViewById(R.id.recy);
+        refresh = getView().findViewById(R.id.refresh);
         Bundle bundle = getArguments();
         if (null != bundle) {
             id = bundle.getInt("id", 0);
         }
-        mViewDataBinding.recy.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mViewDataBinding.recy.addItemDecoration(new CustomItemDecoration(getActivity(),
+        recy.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recy.addItemDecoration(new CustomItemDecoration(getActivity(),
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
         articleListAdapter = new ArticleListAdapter(null);
-        mViewDataBinding.recy.setAdapter(articleListAdapter);
+        recy.setAdapter(articleListAdapter);
     }
 
     @Override
@@ -80,9 +85,9 @@ public class ProjectListFragment extends BaseLazyFragment<FragmentProjectListBin
         super.initData();
 
         mViewModel.mArticleListMutable.observe(this, datasBeans -> {
-            if (mViewDataBinding.refresh.getState().isOpening) {
-                mViewDataBinding.refresh.finishRefresh();
-                mViewDataBinding.refresh.finishLoadMore();
+            if (refresh.getState().isOpening) {
+                refresh.finishRefresh();
+                refresh.finishLoadMore();
             }
             if (isLoading)
                 showContent();
@@ -97,7 +102,7 @@ public class ProjectListFragment extends BaseLazyFragment<FragmentProjectListBin
                 if (pageInfo.isFirstPage()) {
                     showEmpty();
                 } else {
-                    mViewDataBinding.refresh.finishLoadMoreWithNoMoreData();
+                    refresh.finishLoadMoreWithNoMoreData();
                 }
             }
             isLoading = false;
@@ -128,7 +133,7 @@ public class ProjectListFragment extends BaseLazyFragment<FragmentProjectListBin
     protected void lazyLoadData() {
         pageInfo = new PageInfo();
         isLoading = true;
-        mViewDataBinding.refresh.setOnRefreshLoadMoreListener(this);
+        refresh.setOnRefreshLoadMoreListener(this);
         articleListAdapter.setOnItemClickListener((adapter, view, position) -> {
             ArticleEntity.DatasBean datasBean = articleListAdapter.getData().get(position);
             WebViewActivity.start(getActivity(), datasBean.getTitle(), datasBean.getLink());

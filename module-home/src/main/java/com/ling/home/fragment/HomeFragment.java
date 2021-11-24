@@ -1,25 +1,24 @@
 package com.ling.home.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Outline;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.youth.banner.config.BannerConfig;
-import com.youth.banner.config.IndicatorConfig;
-import com.youth.banner.indicator.CircleIndicator;
-import com.youth.banner.util.BannerUtils;
+import com.google.android.material.appbar.AppBarLayout;
 import com.ling.aop.checklogin.annotation.CheckLogin;
 import com.ling.base.event.IEventBus;
 import com.ling.base.event.SettingEvent;
-import com.ling.base.fragment.BaseFragment;
+import com.ling.base.fragment.LBaseFragment;
 import com.ling.base.router.RouterFragmentPath;
 import com.ling.common.adapter.ArticleListAdapter;
 import com.ling.common.bean.ArticleEntity;
@@ -30,16 +29,23 @@ import com.ling.common.utils.CustomItemDecoration;
 import com.ling.home.R;
 import com.ling.home.activity.SearchActivity;
 import com.ling.home.adapter.HomeHeadBannerAdapter;
-import com.ling.home.databinding.HomeFragmentHomeBinding;
 import com.ling.home.viewmodel.HomeViewModel;
 import com.ling.network.constant.C;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.youth.banner.Banner;
+import com.youth.banner.config.BannerConfig;
+import com.youth.banner.config.IndicatorConfig;
+import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.util.BannerUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
 @Route(path = RouterFragmentPath.Home.PAGER_HOME)
-public class HomeFragment extends BaseFragment<HomeFragmentHomeBinding, HomeViewModel> implements IEventBus {
+public class HomeFragment extends LBaseFragment<HomeViewModel> implements IEventBus {
 
     private ArticleListAdapter articleListAdapter;
     private PageInfo pageInfo;
@@ -53,6 +59,14 @@ public class HomeFragment extends BaseFragment<HomeFragmentHomeBinding, HomeView
 
     //记录当前点击收藏的position
     private int currentPosition = 0;
+    private View rootview;
+    private RecyclerView recy;
+    private AppBarLayout appBar;
+    private View nestscrollview;
+    private View ivSearch;
+    private View cl;
+    private SmartRefreshLayout refresh;
+    private Banner banner;
 
     @Override
     protected void initImmersionBar() {
@@ -79,48 +93,55 @@ public class HomeFragment extends BaseFragment<HomeFragmentHomeBinding, HomeView
     @Override
     protected void initView() {
         super.initView();
-
+        rootview = getView().findViewById(R.id.rootview);
+        recy = getView().findViewById(R.id.recy);
+        appBar = getView().findViewById(R.id.appBar);
+        nestscrollview = getView().findViewById(R.id.nestscrollview);
+        ivSearch = getView().findViewById(R.id.ivSearch);
+        cl = getView().findViewById(R.id.cl);
+        refresh = getView().findViewById(R.id.refresh);
+        banner = getView().findViewById(R.id.banner);
         pageInfo = new PageInfo();
-        setLoadSir(mViewDataBinding.rootview);
-        mViewDataBinding.recy.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mViewDataBinding.recy.addItemDecoration(new CustomItemDecoration(getActivity(),
+        setLoadSir(rootview);
+        recy.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recy.addItemDecoration(new CustomItemDecoration(getActivity(),
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
         articleListAdapter = new ArticleListAdapter(null);
-        mViewDataBinding.recy.setAdapter(articleListAdapter);
+        recy.setAdapter(articleListAdapter);
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            mViewDataBinding.cl.setElevation(10f);
-//            mViewDataBinding.llRadius.setElevation(20f);
-//            mViewDataBinding.recy.setNestedScrollingEnabled(false);
+//            cl.setElevation(10f);
+//            llRadius.setElevation(20f);
+//            recy.setNestedScrollingEnabled(false);
 //        }
 
         //解决swiperefresh与scrollview滑动冲突问题
-        mViewDataBinding.appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+        appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
             /**
              *   verticalOffset == 0 时候也就是Appbarlayout完全展开的时候，事件交给swiperefresh
              */
-//            mViewDataBinding.swipe.setEnabled(verticalOffset == 0);
+//            swipe.setEnabled(verticalOffset == 0);
         });
 
-        mViewDataBinding.nestscrollview.getViewTreeObserver().addOnScrollChangedListener(() -> {
+        nestscrollview.getViewTreeObserver().addOnScrollChangedListener(() -> {
             /**
              * 原理如上
              */
-//            mViewDataBinding.swipe.setEnabled(mViewDataBinding.nestscrollview.getScrollY() == 0);
+//            swipe.setEnabled(nestscrollview.getScrollY() == 0);
         });
 
-        mViewDataBinding.nestscrollview.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+        nestscrollview.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             float alpha = 0f;
             if (scrollY > 0) {
-                mViewDataBinding.ivSearch.setEnabled(true);
+                ivSearch.setEnabled(true);
                 alpha = (float) scrollY / (float) 300;
             } else {
-                mViewDataBinding.ivSearch.setEnabled(false);
+                ivSearch.setEnabled(false);
             }
-            mViewDataBinding.cl.setAlpha(alpha);
+            cl.setAlpha(alpha);
         });
 
-        mViewDataBinding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 loadData();
@@ -135,8 +156,8 @@ public class HomeFragment extends BaseFragment<HomeFragmentHomeBinding, HomeView
 
         loadData();
 
-        mViewDataBinding.ivSearch.setOnClickListener(v -> {
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), mViewDataBinding.ivSearch, "search");
+        ivSearch.setOnClickListener(v -> {
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), ivSearch, "search");
             Intent intent = new Intent(getActivity(), SearchActivity.class);
             ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
         });
@@ -146,13 +167,13 @@ public class HomeFragment extends BaseFragment<HomeFragmentHomeBinding, HomeView
     protected void initData() {
         super.initData();
         mViewModel.mBannerListMutable.observe(this, bannerEntities -> {
-            if (mViewDataBinding.refresh.getState().isOpening) {
-                mViewDataBinding.refresh.finishRefresh();
-                mViewDataBinding.refresh.finishLoadMore();
+            if (refresh.getState().isOpening) {
+                refresh.finishRefresh();
+                refresh.finishLoadMore();
             }
 
             if (bannerEntities != null && bannerEntities.size() > 0) {
-                mViewDataBinding.banner.setAdapter(new HomeHeadBannerAdapter(bannerEntities))
+                banner.setAdapter(new HomeHeadBannerAdapter(bannerEntities))
                         .setIndicator(new CircleIndicator(getActivity()))
                         .setIndicatorGravity(IndicatorConfig.Direction.RIGHT)
                         .setIndicatorMargins(new IndicatorConfig.Margins(0, 0,
@@ -164,8 +185,8 @@ public class HomeFragment extends BaseFragment<HomeFragmentHomeBinding, HomeView
         });
 
         mViewModel.mArticleListMutable.observe(this, datasBeans -> {
-            if (mViewDataBinding.refresh.getState().isOpening) {
-                mViewDataBinding.refresh.finishRefresh();
+            if (refresh.getState().isOpening) {
+                refresh.finishRefresh();
             }
 
             if (isLoading)
@@ -177,8 +198,8 @@ public class HomeFragment extends BaseFragment<HomeFragmentHomeBinding, HomeView
 
         //加载更多
         mViewModel.mArticleMutable.observe(this, articleEntity -> {
-            if (mViewDataBinding.refresh.getState().isOpening)
-                mViewDataBinding.refresh.finishLoadMore();
+            if (refresh.getState().isOpening)
+                refresh.finishLoadMore();
             if (null != articleEntity) {
                 List<ArticleEntity.DatasBean> entityDatas = articleEntity.getDatas();
                 if (null != entityDatas && entityDatas.size() > 0) {

@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -18,13 +20,12 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.gyf.immersionbar.ImmersionBar;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.common.storage.MmkvHelper;
 import com.ling.home.R;
 import com.ling.home.adapter.HomeSearchHistoryAdapter;
 import com.ling.home.adapter.HotSearchAdapter;
 import com.ling.home.bean.HotSearchEntity;
-import com.ling.home.databinding.ActivitySearchBinding;
 import com.ling.home.viewmodel.SearchViewModel;
 import com.ling.network.constant.C;
 
@@ -35,10 +36,19 @@ import java.util.List;
 /**
  * Created by zjp on 2020/5/25 21:32.
  */
-public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchViewModel> {
+public class SearchActivity extends LBaseActivity<SearchViewModel> {
 
     private HomeSearchHistoryAdapter homeSearchHistoryAdapter;
     private HotSearchAdapter hotSearchAdapter;
+    private View viewStatus;
+    private RecyclerView recyclerHistory;
+    private RecyclerView recyFlex;
+    private View ivBack;
+    private EditText searchEt;
+    private TextView clearHistoryTv;
+    private View historyPage;
+    private View ivSearch;
+    private View lHead;
 
     @Override
     protected void initImmersionBar() {
@@ -56,25 +66,32 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
     @Override
     protected void initView() {
         super.initView();
-
-        ViewGroup.LayoutParams layoutParams = mViewDataBinding.viewStatus.getLayoutParams();
+        viewStatus = findViewById(R.id.view_status);
+        recyclerHistory = findViewById(R.id.recycler_history);
+        recyFlex = findViewById(R.id.recy_flex);
+        searchEt = findViewById(R.id.search_et);
+        clearHistoryTv = findViewById(R.id.clear_history_tv);
+        historyPage = findViewById(R.id.history_page);
+        ivSearch = findViewById(R.id.iv_search);
+        lHead = findViewById(R.id.l_head);
+        ViewGroup.LayoutParams layoutParams = viewStatus.getLayoutParams();
         layoutParams.height = ImmersionBar.getStatusBarHeight(this);
-        mViewDataBinding.viewStatus.setLayoutParams(layoutParams);
+        viewStatus.setLayoutParams(layoutParams);
 
         //初始化搜索历史记录adapter
-        mViewDataBinding.recyclerHistory.setLayoutManager(new LinearLayoutManager(this));
-        mViewDataBinding.recyclerHistory.setAdapter(homeSearchHistoryAdapter = new HomeSearchHistoryAdapter());
+        recyclerHistory.setLayoutManager(new LinearLayoutManager(this));
+        recyclerHistory.setAdapter(homeSearchHistoryAdapter = new HomeSearchHistoryAdapter());
 
         //初始化热门搜索adapter
-        mViewDataBinding.recyFlex.setLayoutManager(new FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP) {
+        recyFlex.setLayoutManager(new FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP) {
             @Override
             public boolean canScrollHorizontally() {
                 return false;
             }
         });
-        mViewDataBinding.recyFlex.setAdapter(hotSearchAdapter = new HotSearchAdapter());
+        recyFlex.setAdapter(hotSearchAdapter = new HotSearchAdapter());
 
-        mViewDataBinding.ivBack.setOnClickListener(v -> {
+        ivBack.setOnClickListener(v -> {
             finishAfterTransition();
             KeyboardUtils.hideSoftInput(SearchActivity.this);
         });
@@ -86,7 +103,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
     protected void onResume() {
         super.onResume();
         fillHistory();
-        showSoftInputFromWindow(this, mViewDataBinding.searchEt);
+        showSoftInputFromWindow(this, searchEt);
     }
 
     @Override
@@ -98,9 +115,9 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
             }
         });
 
-        mViewDataBinding.searchEt.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+        searchEt.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                String searchVal = mViewDataBinding.searchEt.getText().toString().trim();
+                String searchVal = searchEt.getText().toString().trim();
                 if (TextUtils.isEmpty(searchVal)) {
                     ToastUtils.showShort("请输入内容再搜索!");
                 } else {
@@ -111,16 +128,16 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
             return false;
         });
 
-        mViewDataBinding.clearHistoryTv.setOnClickListener(v -> {
-            if (TextUtils.equals(mViewDataBinding.clearHistoryTv.getText().toString(), "全部搜索记录")) {
+        clearHistoryTv.setOnClickListener(v -> {
+            if (TextUtils.equals(clearHistoryTv.getText().toString(), "全部搜索记录")) {
                 List<String> searchHistories = MmkvHelper.getInstance().getDataList(C.SEARCH_HISTORY);
                 searchHistories = searchHistories.subList(2, searchHistories.size());
                 homeSearchHistoryAdapter.addData(searchHistories);
-                KeyboardUtils.hideSoftInput(mViewDataBinding.clearHistoryTv);
-                mViewDataBinding.clearHistoryTv.setText("清除全部历史记录");
+                KeyboardUtils.hideSoftInput(clearHistoryTv);
+                clearHistoryTv.setText("清除全部历史记录");
             } else {
                 MmkvHelper.getInstance().clearHistory(C.SEARCH_HISTORY);
-                mViewDataBinding.historyPage.setVisibility(View.GONE);
+                historyPage.setVisibility(View.GONE);
             }
         });
 
@@ -140,9 +157,9 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
                 MmkvHelper.getInstance().removeKeywords(data.get(position));
                 removeIndex(data, position);
                 if (homeSearchHistoryAdapter.getItemCount() == 0) { //删完再读数据库 如果null，则隐藏相关ui
-                    mViewDataBinding.historyPage.setVisibility(View.GONE);
+                    historyPage.setVisibility(View.GONE);
                 } else {
-                    mViewDataBinding.clearHistoryTv.setText("清除全部历史记录");
+                    clearHistoryTv.setText("清除全部历史记录");
                 }
             }
         });
@@ -155,8 +172,8 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
     }
 
     private void fillEtInput(String keyword) {
-        mViewDataBinding.searchEt.setText(keyword);
-        mViewDataBinding.searchEt.setSelection(keyword.length());
+        searchEt.setText(keyword);
+        searchEt.setSelection(keyword.length());
         saveDB(keyword);
         skipActivity(keyword);
     }
@@ -165,15 +182,15 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
         List<String> dataList = MmkvHelper.getInstance().getDataList(C.SEARCH_HISTORY);
         if (null != dataList && dataList.size() > 0) {
             if (dataList.size() == 1 || dataList.size() == 2) {
-                mViewDataBinding.clearHistoryTv.setText("清除全部历史记录");
+                clearHistoryTv.setText("清除全部历史记录");
             } else {
-                mViewDataBinding.clearHistoryTv.setText("全部搜索记录");
+                clearHistoryTv.setText("全部搜索记录");
                 dataList = dataList.subList(0, 2);
             }
-            mViewDataBinding.historyPage.setVisibility(View.VISIBLE);
+            historyPage.setVisibility(View.VISIBLE);
             homeSearchHistoryAdapter.setList(dataList);
         } else {
-            mViewDataBinding.historyPage.setVisibility(View.GONE);
+            historyPage.setVisibility(View.GONE);
         }
     }
 
@@ -193,8 +210,8 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
 
     private void skipActivity(String keyword) {
         KeyboardUtils.hideSoftInput(this);
-        Pair<View, String> search = Pair.create(mViewDataBinding.ivSearch, "search");
-        Pair<View, String> ll = Pair.create(mViewDataBinding.lHead, "viewll");
+        Pair<View, String> search = Pair.create(ivSearch, "search");
+        Pair<View, String> ll = Pair.create(lHead, "viewll");
 
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 this,

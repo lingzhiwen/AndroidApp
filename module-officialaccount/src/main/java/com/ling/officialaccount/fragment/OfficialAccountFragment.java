@@ -1,10 +1,16 @@
 package com.ling.officialaccount.fragment;
 
+import android.app.AlertDialog;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.gyf.immersionbar.ImmersionBar;
 import com.ling.base.fragment.BaseFragment;
+import com.ling.base.fragment.LBaseFragment;
 import com.ling.base.router.RouterFragmentPath;
 import com.ling.common.bean.ArticleEntity;
 import com.ling.common.bean.ProjectTabBean;
@@ -16,18 +22,26 @@ import com.ling.officialaccount.adapter.CategoryAdapter;
 import com.ling.officialaccount.adapter.OfficialAccountListAdapter;
 import com.ling.officialaccount.databinding.FragmentOfficialAccountFragmentBinding;
 import com.ling.officialaccount.viewmodel.OfficialAccountViewModel;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = RouterFragmentPath.OfficialAccount.PAGER_OFFICIALACCOUNT)
-public class OfficialAccountFragment extends BaseFragment<FragmentOfficialAccountFragmentBinding, OfficialAccountViewModel> {
+public class OfficialAccountFragment extends LBaseFragment<OfficialAccountViewModel> {
 
     private CategoryAdapter categoryAdapter;
     private OfficialAccountListAdapter officialAccountListAdapter;
     private PageInfo pageInfo;
     private int id = 0;
     private List<ArticleEntity.DatasBean> shareArticles = new ArrayList<>();
+    private View viewStatus;
+    private TextView tvTitle;
+    private RefreshLayout refresh;
+    private RecyclerView recy;
+    private RecyclerView recyCategory;
+    private OfficialAccountViewModel vm;
 
     @Override
     protected void initImmersionBar() {
@@ -53,11 +67,16 @@ public class OfficialAccountFragment extends BaseFragment<FragmentOfficialAccoun
     @Override
     protected void initView() {
         super.initView();
-        ViewGroup.LayoutParams layoutParams = mViewDataBinding.viewStatus.getLayoutParams();
+        viewStatus = getView().findViewById(R.id.view_status);
+        tvTitle = getView().findViewById(R.id.tv_title);
+        refresh = getView().findViewById(R.id.refresh);
+        recy = getView().findViewById(R.id.recy);
+        recyCategory = getView().findViewById(R.id.recy_category);
+        ViewGroup.LayoutParams layoutParams = viewStatus.getLayoutParams();
         layoutParams.height = ImmersionBar.getStatusBarHeight(getActivity());
-        mViewDataBinding.viewStatus.setLayoutParams(layoutParams);
-        mViewDataBinding.tvTitle.setText("公众号");
-        mViewDataBinding.setVm(mViewModel);
+        viewStatus.setLayoutParams(layoutParams);
+        tvTitle.setText("公众号");
+        setVm(mViewModel);
         initCategory();
         initArticleList();
         pageInfo = new PageInfo();
@@ -93,7 +112,7 @@ public class OfficialAccountFragment extends BaseFragment<FragmentOfficialAccoun
                 List<ArticleEntity.DatasBean> shareArticles = articleEntity.getDatas();
                 pageInfo.nextPage();
                 if (articleEntity.getCurPage() == 1) {
-                    mViewDataBinding.recy.smoothScrollToPosition(0);
+                    recy.smoothScrollToPosition(0);
                     showContent();
                     if (shareArticles != null && shareArticles.size() > 0) {
                         showContent();
@@ -106,10 +125,10 @@ public class OfficialAccountFragment extends BaseFragment<FragmentOfficialAccoun
                 }
 
                 if (articleEntity.isOver()) {
-                    mViewDataBinding.refresh.finishLoadMoreWithNoMoreData();
+                    refresh.finishLoadMoreWithNoMoreData();
                 }
-                mViewDataBinding.refresh.finishRefresh(true);
-                mViewDataBinding.refresh.finishLoadMore(true);
+                refresh.finishRefresh(true);
+                refresh.finishLoadMore(true);
             }
         });
 
@@ -131,13 +150,13 @@ public class OfficialAccountFragment extends BaseFragment<FragmentOfficialAccoun
     }
 
     private void initCategory() {
-        mViewDataBinding.recyCategory.setAdapter(categoryAdapter = new CategoryAdapter());
+        recyCategory.setAdapter(categoryAdapter = new CategoryAdapter());
     }
 
     private void initArticleList() {
-        mViewDataBinding.recy.addItemDecoration(new CustomItemDecoration(getActivity(),
+        recy.addItemDecoration(new CustomItemDecoration(getActivity(),
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
-        mViewDataBinding.recy.setAdapter(officialAccountListAdapter = new OfficialAccountListAdapter());
+        recy.setAdapter(officialAccountListAdapter = new OfficialAccountListAdapter());
 
         officialAccountListAdapter.setOnItemClickListener((adapter, view, position) -> {
             ArticleEntity.DatasBean datasBean = officialAccountListAdapter.getData().get(position);
@@ -145,4 +164,11 @@ public class OfficialAccountFragment extends BaseFragment<FragmentOfficialAccoun
         });
     }
 
+    public void setVm(OfficialAccountViewModel vm) {
+        this.vm = vm;
+    }
+
+    public OfficialAccountViewModel getVm() {
+        return vm;
+    }
 }

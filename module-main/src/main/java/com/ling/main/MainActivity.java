@@ -4,6 +4,7 @@ package com.ling.main;
 import android.content.Intent;
 import android.util.SparseArray;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,16 +15,14 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.base.router.RouterActivityPath;
 import com.ling.base.router.RouterFragmentPath;
 import com.ling.base.viewmodel.BaseViewModel;
-import com.ling.main.R;
-import com.ling.main.databinding.ActivityMainBinding;
 import com.ling.network.constant.C;
 
 @Route(path = RouterActivityPath.Main.PAGER_MAIN)
-public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewModel> implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends LBaseActivity<BaseViewModel> implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private int mCurrentPage = -1;
 
@@ -38,6 +37,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
 
     private Fragment mHomeFragment, mProjectFragment, mSquareFragment, mOfficialAccountFragment, mMineFragment;
     private long mPreTime;
+    private BottomNavigationView bottomnavigation;
+    private View rootview;
 
     @Override
     protected int getLayoutId() {
@@ -47,11 +48,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     @Override
     protected void initView() {
         super.initView();
-
+        bottomnavigation = findViewById(R.id.bottomnavigation);
+        rootview = findViewById(R.id.rootview);
         mFragmentManager = getSupportFragmentManager();
         mFragmentMap = new SparseArray<>();
         pageTo(FRAGMENT_HOME);
-        mViewDataBinding.bottomnavigation.setOnNavigationItemSelectedListener(this);
+        bottomnavigation.setOnNavigationItemSelectedListener(this);
     }
 
 
@@ -93,15 +95,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     public void pageTo(int pageIndex) {
         mCurrentPage = pageIndex;
         if (mCurrentPage == FRAGMENT_HOME) {
-            mViewDataBinding.bottomnavigation.setSelectedItemId(R.id.menu_home);
+            bottomnavigation.setSelectedItemId(R.id.menu_home);
         } else if (mCurrentPage == FRAGMENT_PROJECT) {
-            mViewDataBinding.bottomnavigation.setSelectedItemId(R.id.menu_project);
+            bottomnavigation.setSelectedItemId(R.id.menu_project);
         } else if (mCurrentPage == FRAGMENT_SQUARE) {
-            mViewDataBinding.bottomnavigation.setSelectedItemId(R.id.menu_square);
+            bottomnavigation.setSelectedItemId(R.id.menu_square);
         } else if (mCurrentPage == FRAGMENT_OFFICIAL_ACCOUNT) {
-            mViewDataBinding.bottomnavigation.setSelectedItemId(R.id.menu_official_account);
+            bottomnavigation.setSelectedItemId(R.id.menu_official_account);
         } else if (mCurrentPage == FRAGMENT_MINE) {
-            mViewDataBinding.bottomnavigation.setSelectedItemId(R.id.menu_mine);
+            bottomnavigation.setSelectedItemId(R.id.menu_mine);
         }
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         hideFragment(transaction);
@@ -163,7 +165,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     public void onBackPressed() {
         super.onBackPressed();
         if (System.currentTimeMillis() - mPreTime > C.BACK_DURATION) {
-            Snackbar.make(mViewDataBinding.rootview, "再按一次退出 wanandroid", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(rootview, "再按一次退出 wanandroid", Snackbar.LENGTH_SHORT).show();
             mPreTime = System.currentTimeMillis();
             return;
         } else {

@@ -1,5 +1,9 @@
 package com.ling.square.fragment;
 
+import android.app.AlertDialog;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.ling.base.fragment.BaseLazyFragment;
 import com.ling.common.bean.ProjectTabBean;
 import com.ling.square.R;
@@ -11,11 +15,12 @@ import com.ling.square.viewmodel.SquareViewModel;
 /**
  * Created by zjp on 2020/08/20 14:15
  */
-public class SystemFragment extends BaseLazyFragment<FragmentListSystemBinding, SquareViewModel>
+public class SystemFragment extends BaseLazyFragment<SquareViewModel>
         implements SystemListAdapter.OnItemClickListener {
 
     private SystemListAdapter systemListAdapter;
     private boolean isLoading;
+    private RecyclerView recy;
 
     public static SystemFragment newInstance() {
         return new SystemFragment();
@@ -32,7 +37,8 @@ public class SystemFragment extends BaseLazyFragment<FragmentListSystemBinding, 
     @Override
     protected void initView() {
         super.initView();
-        mViewDataBinding.recy.setAdapter(systemListAdapter = new SystemListAdapter());
+        recy = getView().findViewById(R.id.recy);
+        recy.setAdapter(systemListAdapter = new SystemListAdapter());
         systemListAdapter.setOnItemClickListener(this::onClick);
     }
 

@@ -6,16 +6,17 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.ling.base.activity.LBaseActivity;
+import com.ling.base.databinding.BaseRefreshLayoutBinding;
+import com.ling.common.view.CommonHeadTitle;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.ling.base.activity.BaseActivity;
 import com.ling.common.adapter.ArticleListAdapter;
 import com.ling.common.bean.ArticleEntity;
 import com.ling.common.bean.page.PageInfo;
 import com.ling.common.utils.CustomItemDecoration;
 import com.ling.network.constant.C;
 import com.ling.square.R;
-import com.ling.square.databinding.ActivityStstemBinding;
 import com.ling.square.viewmodel.SquareViewModel;
 
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * Created by zjp on 2020/08/20 16:18
  */
-public class SystemActivity extends BaseActivity<ActivityStstemBinding, SquareViewModel>
+public class SystemActivity extends LBaseActivity<SquareViewModel>
         implements OnRefreshLoadMoreListener {
 
     private PageInfo pageInfo;
@@ -37,6 +38,7 @@ public class SystemActivity extends BaseActivity<ActivityStstemBinding, SquareVi
      * 避免重复点击产生的bug
      */
     private boolean lockCollectClick = true;
+    private BaseRefreshLayoutBinding includeRefresh;
 
     public static void start(Context context, String title, int cid) {
         Intent intent = new Intent(context, SystemActivity.class);
@@ -62,21 +64,22 @@ public class SystemActivity extends BaseActivity<ActivityStstemBinding, SquareVi
     protected void initView() {
         super.initView();
         Intent intent = getIntent();
+        CommonHeadTitle headTitle = findViewById(R.id.title);
         if (intent != null) {
             String title = intent.getStringExtra(C.TITLE);
             cid = intent.getIntExtra(C.CID, 0);
-            mViewDataBinding.title.setTitle(title);
+            headTitle.setTitle(title);
         }
 
         pageInfo = new PageInfo();
-        setLoadSir(mViewDataBinding.includeRefresh.refresh);
+        setLoadSir(includeRefresh.refresh);
         loadData();
 
-        mViewDataBinding.includeRefresh.recy.setLayoutManager(new LinearLayoutManager(this));
-        mViewDataBinding.includeRefresh.recy.addItemDecoration(new CustomItemDecoration(this,
+        includeRefresh.recy.setLayoutManager(new LinearLayoutManager(this));
+        includeRefresh.recy.addItemDecoration(new CustomItemDecoration(this,
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
-        mViewDataBinding.includeRefresh.recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
-        mViewDataBinding.includeRefresh.refresh.setOnRefreshLoadMoreListener(this);
+        includeRefresh.recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
+        includeRefresh.refresh.setOnRefreshLoadMoreListener(this);
     }
 
     @Override
@@ -84,9 +87,9 @@ public class SystemActivity extends BaseActivity<ActivityStstemBinding, SquareVi
         super.initData();
 
         mViewModel.mArticleMuTable.observe(this, articleEntity -> {
-            if (mViewDataBinding.includeRefresh.refresh.getState().isOpening) {
-                mViewDataBinding.includeRefresh.refresh.finishRefresh();
-                mViewDataBinding.includeRefresh.refresh.finishLoadMore();
+            if (includeRefresh.refresh.getState().isOpening) {
+                includeRefresh.refresh.finishRefresh();
+                includeRefresh.refresh.finishLoadMore();
             }
 
             List<ArticleEntity.DatasBean> dataList = articleEntity.getDatas();
@@ -109,7 +112,7 @@ public class SystemActivity extends BaseActivity<ActivityStstemBinding, SquareVi
                 articleListAdapter.addData(dataList);
             }
             if (articleEntity.isOver()) {
-                mViewDataBinding.includeRefresh.refresh.finishLoadMoreWithNoMoreData();
+                includeRefresh.refresh.finishLoadMoreWithNoMoreData();
             }
         });
 

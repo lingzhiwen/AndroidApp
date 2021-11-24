@@ -1,16 +1,21 @@
 package com.ling.login.fragment;
 
+import android.app.MediaRouteButton;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.navigation.Navigation;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.android.material.textfield.TextInputEditText;
 import com.ling.base.fragment.BaseFragment;
+import com.ling.base.fragment.LBaseFragment;
 import com.ling.common.storage.MmkvHelper;
 import com.ling.common.textwatcher.SimpleTextWatcher;
 import com.ling.login.R;
@@ -21,11 +26,18 @@ import com.ling.login.viewmodel.LoginViewModel;
 /**
  * Created by zjp on 2020/5/18 17:30
  */
-public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewModel> {
+public class LoginFragment extends LBaseFragment<LoginViewModel> {
 
     private LoginActivity activity;
     //密码是否显示明文
     private boolean isPasswordShow = false;
+    private View btnLogin;
+    private TextInputEditText etUsername;
+    private TextInputEditText etPwd;
+    private ImageView ivClearName;
+    private ImageView ivClearPwd;
+    private ImageView ivPwdPrivate;
+    private View clLoading;
 
     @Override
     protected void initImmersionBar() {
@@ -43,60 +55,67 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
     @Override
     protected void initView() {
         super.initView();
+        etUsername = getActivity().findViewById(R.id.et_username);
+        ivClearName = getActivity().findViewById(R.id.iv_clear_name);
+        etPwd = getActivity().findViewById(R.id.et_pwd);
+        ivClearPwd = getActivity().findViewById(R.id.iv_clear_pwd);
+        ivPwdPrivate = getActivity().findViewById(R.id.iv_pwd_private);
+        btnLogin = getActivity().findViewById(R.id.btn_login);
+        clLoading = getActivity().findViewById(R.id.cl_loading);
         activity = (LoginActivity) getActivity();
         activity.tvRight.setOnClickListener(v -> {
-            Navigation.findNavController(mViewDataBinding.btnLogin).navigate(R.id.action_fragment_register);
+            Navigation.findNavController(btnLogin).navigate(R.id.action_fragment_register);
         });
         activity.backView.setBackgroundResource(R.drawable.close);
         activity.backView.setOnClickListener(v -> {
             getActivity().finish();
         });
 
-        mViewDataBinding.etUsername.addTextChangedListener(new SimpleTextWatcher() {
+        etUsername.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 super.afterTextChanged(s);
-                mViewDataBinding.ivClearName.setVisibility(TextUtils.isEmpty(s.toString()) ? View.GONE : View.VISIBLE);
+                ivClearName.setVisibility(TextUtils.isEmpty(s.toString()) ? View.GONE : View.VISIBLE);
             }
         });
 
-        mViewDataBinding.etPwd.addTextChangedListener(new SimpleTextWatcher() {
+        etPwd.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 super.afterTextChanged(s);
-                mViewDataBinding.ivClearPwd.setVisibility(TextUtils.isEmpty(s.toString()) ? View.GONE : View.VISIBLE);
-                mViewDataBinding.ivPwdPrivate.setVisibility(TextUtils.isEmpty(s.toString()) ? View.GONE : View.VISIBLE);
+                ivClearPwd.setVisibility(TextUtils.isEmpty(s.toString()) ? View.GONE : View.VISIBLE);
+                ivPwdPrivate.setVisibility(TextUtils.isEmpty(s.toString()) ? View.GONE : View.VISIBLE);
             }
         });
 
-        mViewDataBinding.ivPwdPrivate.setOnClickListener(v -> {
+        ivPwdPrivate.setOnClickListener(v -> {
             if (isPasswordShow) {
-                mViewDataBinding.etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
             } else {
-                mViewDataBinding.etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             }
-            mViewDataBinding.ivPwdPrivate.setImageResource(isPasswordShow ? R.mipmap.pwd_close : R.mipmap.pwd_open);
-            mViewDataBinding.etPwd.setSelection(mViewDataBinding.etPwd.getText().length());
+            ivPwdPrivate.setImageResource(isPasswordShow ? R.mipmap.pwd_close : R.mipmap.pwd_open);
+            etPwd.setSelection(etPwd.getText().length());
             isPasswordShow = !isPasswordShow;
-            mViewDataBinding.etPwd.postInvalidate();
+            etPwd.postInvalidate();
         });
 
-        mViewDataBinding.ivClearName.setOnClickListener(v -> mViewDataBinding.etUsername.setText(""));
-        mViewDataBinding.ivClearPwd.setOnClickListener(v -> mViewDataBinding.etPwd.setText(""));
+        ivClearName.setOnClickListener(v -> etUsername.setText(""));
+        ivClearPwd.setOnClickListener(v -> etPwd.setText(""));
 
-        mViewDataBinding.btnLogin.setOnClickListener(v -> {
-            String userName = mViewDataBinding.etUsername.getText().toString();
+        btnLogin.setOnClickListener(v -> {
+            String userName = etUsername.getText().toString();
             if (userName.length() == 0) {
                 ToastUtils.showShort("请输入用户名");
                 return;
             }
-            String pwd = mViewDataBinding.etPwd.getText().toString();
+            String pwd = etPwd.getText().toString();
             if (pwd.length() == 0) {
                 ToastUtils.showShort("请输入密码");
                 return;
             }
-            mViewDataBinding.btnLogin.setVisibility(View.GONE);
-            mViewDataBinding.clLoading.setVisibility(View.VISIBLE);
+            btnLogin.setVisibility(View.GONE);
+            clLoading.setVisibility(View.VISIBLE);
             KeyboardUtils.hideSoftInput(getActivity());
             mViewModel.login(userName, pwd);
         });
@@ -110,8 +129,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                 MmkvHelper.getInstance().saveUserInfo(userInfo);
                 getActivity().finish();
             } else {
-                mViewDataBinding.btnLogin.setVisibility(View.VISIBLE);
-                mViewDataBinding.clLoading.setVisibility(View.GONE);
+                btnLogin.setVisibility(View.VISIBLE);
+                clLoading.setVisibility(View.GONE);
             }
         });
     }

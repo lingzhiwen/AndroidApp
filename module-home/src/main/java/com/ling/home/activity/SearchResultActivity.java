@@ -4,14 +4,19 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.ling.base.activity.BaseActivity;
@@ -25,6 +30,7 @@ import com.ling.home.databinding.ActivitySearchresultBinding;
 import com.ling.home.viewmodel.SearchViewModel;
 import com.ling.network.constant.C;
 
+import java.text.BreakIterator;
 import java.util.List;
 
 /**
@@ -37,6 +43,12 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchresultBindi
 
     private ArticleListAdapter articleListAdapter;
     private boolean isLoading = true;
+    private AppCompatEditText searchEt;
+    private View viewStatus;
+    private SmartRefreshLayout refresh;
+    private RecyclerView recy;
+    private Button tvCancel;
+
 
     public static void start(Activity activity, String keyword, ActivityOptionsCompat optionsCompat) {
         Intent intent = new Intent(activity, SearchResultActivity.class);
@@ -60,27 +72,31 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchresultBindi
     @Override
     protected void initView() {
         super.initView();
-
-        ViewGroup.LayoutParams layoutParams = mViewDataBinding.viewStatus.getLayoutParams();
+        searchEt = findViewById(R.id.search_et);
+        viewStatus = findViewById(R.id.view_status);
+        refresh = findViewById(R.id.refresh);
+        recy = findViewById(R.id.recy);
+        tvCancel = findViewById(R.id.tv_cancel);
+        ViewGroup.LayoutParams layoutParams = viewStatus.getLayoutParams();
         layoutParams.height = ImmersionBar.getStatusBarHeight(this);
-        mViewDataBinding.viewStatus.setLayoutParams(layoutParams);
-        setLoadSir(mViewDataBinding.refresh);
+        viewStatus.setLayoutParams(layoutParams);
+        setLoadSir(refresh);
         pageInfo = new PageInfo();
         Intent intent = getIntent();
         if (intent != null) {
             keyword = intent.getStringExtra(C.KEYWORD);
             if (!TextUtils.isEmpty(keyword)) {
-                mViewDataBinding.searchEt.setText(keyword);
-                mViewDataBinding.searchEt.setFocusable(false);
-                mViewDataBinding.searchEt.setSelection(mViewDataBinding.searchEt.length());
+                searchEt.setText(keyword);
+                searchEt.setFocusable(false);
+                searchEt.setSelection(searchEt.length());
             }
         }
 
-        mViewDataBinding.recy.setLayoutManager(new LinearLayoutManager(this));
-        mViewDataBinding.recy.addItemDecoration(new CustomItemDecoration(this,
+        recy.setLayoutManager(new LinearLayoutManager(this));
+        recy.addItemDecoration(new CustomItemDecoration(this,
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
         articleListAdapter = new ArticleListAdapter(null);
-        mViewDataBinding.recy.setAdapter(articleListAdapter);
+        recy.setAdapter(articleListAdapter);
 
         loadData(keyword);
     }
@@ -91,9 +107,9 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchresultBindi
         super.initData();
         mViewModel.mArticleSearch.observe(this, articleEntity -> {
 
-            if (mViewDataBinding.refresh.getState().isOpening) {
-                mViewDataBinding.refresh.finishRefresh();
-                mViewDataBinding.refresh.finishLoadMore();
+            if (refresh.getState().isOpening) {
+                refresh.finishRefresh();
+                refresh.finishLoadMore();
             }
             if (isLoading)
                 showContent();
@@ -110,7 +126,7 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchresultBindi
                     showEmpty();
                 } else {
                     articleListAdapter.addData(datas);
-                    mViewDataBinding.refresh.finishLoadMoreWithNoMoreData();
+                    refresh.finishLoadMoreWithNoMoreData();
                 }
             }
             isLoading = false;
@@ -121,7 +137,7 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchresultBindi
             WebViewActivity.start(this, datasBean.getTitle(), datasBean.getLink());
         });
 
-        mViewDataBinding.refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 loadData(keyword);
@@ -134,24 +150,24 @@ public class SearchResultActivity extends BaseActivity<ActivitySearchresultBindi
             }
         });
 
-        mViewDataBinding.searchEt.setOnFocusChangeListener((v, hasFocus) -> {
+        searchEt.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 Intent intent = new Intent();
-                intent.putExtra(C.KEYWORD, mViewDataBinding.searchEt.getText().toString());
+                intent.putExtra(C.KEYWORD, searchEt.getText().toString());
                 setResult(RESULT_OK, intent);
                 finishAfterTransition();
             }
         });
 
-        mViewDataBinding.searchEt.setOnTouchListener((view, motionEvent) -> {
-            if (mViewDataBinding.searchEt == null) return false;
-            mViewDataBinding.searchEt.setFocusable(true);
-            mViewDataBinding.searchEt.setFocusableInTouchMode(true);
-            mViewDataBinding.searchEt.requestFocus();
+        searchEt.setOnTouchListener((view, motionEvent) -> {
+            if (searchEt == null) return false;
+            searchEt.setFocusable(true);
+            searchEt.setFocusableInTouchMode(true);
+            searchEt.requestFocus();
             return false;
         });
 
-        mViewDataBinding.tvCancel.setOnClickListener(v -> finishAfterTransition());
+        tvCancel.setOnClickListener(v -> finishAfterTransition());
     }
 
     private void loadData(String keyword) {

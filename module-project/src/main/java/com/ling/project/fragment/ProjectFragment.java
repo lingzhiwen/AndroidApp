@@ -1,13 +1,16 @@
 package com.ling.project.fragment;
 
 
+import android.app.ActionBar;
 import android.os.Build;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ling.base.fragment.BaseFragment;
+import com.ling.base.fragment.LBaseFragment;
 import com.ling.base.router.RouterFragmentPath;
 import com.ling.common.adapter.TabNavigatorAdapter;
 import com.ling.common.adapter.TabPagerAdapter;
@@ -20,6 +23,7 @@ import com.ling.project.R;
 import com.ling.project.databinding.FragmentProjectFragmentBinding;
 import com.ling.project.viewmodel.ProjectViewModel;
 
+import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
@@ -27,12 +31,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = RouterFragmentPath.Project.PAGER_PROJECT)
-public class ProjectFragment extends BaseFragment<FragmentProjectFragmentBinding, ProjectViewModel>
+public class ProjectFragment extends LBaseFragment<ProjectViewModel>
         implements TabPagerListener, OnTabClickListener {
 
     private List<ProjectTabBean> tabBeanList = new ArrayList<>();
     private List<String> titleList = new ArrayList<>();
     private TabPagerAdapter tabPagerAdapter;
+    private View fl;
+    private ViewPager vp;
+    private MagicIndicator magicInticator;
 
     @Override
     protected void initImmersionBar() {
@@ -58,11 +65,11 @@ public class ProjectFragment extends BaseFragment<FragmentProjectFragmentBinding
     @Override
     protected void initView() {
         super.initView();
-//        ViewGroup.LayoutParams layoutParams = mViewDataBinding.viewStatus.getLayoutParams();
-//        layoutParams.height = ImmersionBar.getStatusBarHeight(getActivity());
-//        mViewDataBinding.viewStatus.setLayoutParams(layoutParams);
+        fl = getView().findViewById(R.id.fl);
+        vp = getView().findViewById(R.id.vp);
+        magicInticator = getView().findViewById(R.id.magic_inticator);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mViewDataBinding.fl.setElevation(10f);
+            fl.setElevation(10f);
         }
     }
 
@@ -83,15 +90,15 @@ public class ProjectFragment extends BaseFragment<FragmentProjectFragmentBinding
     private void initFragment() {
         tabPagerAdapter = new TabPagerAdapter(getChildFragmentManager(), tabBeanList.size());
         tabPagerAdapter.setListener(this::getFragment);
-        mViewDataBinding.vp.setAdapter(tabPagerAdapter);
-        mViewDataBinding.vp.setOffscreenPageLimit(tabBeanList.size() );
+        vp.setAdapter(tabPagerAdapter);
+        vp.setOffscreenPageLimit(tabBeanList.size() );
 
         CommonNavigator commonNavigator = new CommonNavigator(getActivity());
         TabNavigatorAdapter tabNavigatorAdapter = new TabNavigatorAdapter(titleList);
         tabNavigatorAdapter.setOnTabClickListener(this::onTabClick);
         commonNavigator.setAdapter(tabNavigatorAdapter);
-        mViewDataBinding.magicInticator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(mViewDataBinding.magicInticator, mViewDataBinding.vp);
+        magicInticator.setNavigator(commonNavigator);
+        ViewPagerHelper.bind(magicInticator, vp);
 
         //        Observable.fromIterable(null).map(SelectHomeListFragment::newInstance).toList()
 //                .map(fragments -> new FragmentAdapter(getSupportFragmentManager()).newInstance(getSupportFragmentManager(), fragments, mCategotyTxt))
@@ -106,6 +113,6 @@ public class ProjectFragment extends BaseFragment<FragmentProjectFragmentBinding
 
     @Override
     public void onTabClick(View view, int index) {
-        mViewDataBinding.vp.setCurrentItem(index);
+        vp.setCurrentItem(index);
     }
 }

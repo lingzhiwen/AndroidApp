@@ -11,16 +11,15 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.immersionbar.ImmersionBar;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
-import com.ling.base.interf.IBaseView;
 import com.ling.base.event.IEventBus;
+import com.ling.base.interf.IBaseView;
 import com.ling.base.loadsir.EmptyCallback;
 import com.ling.base.loadsir.ErrorCallback;
 import com.ling.base.loadsir.LoadingCallback;
@@ -30,17 +29,14 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
 
 /**
- * Created by zjp on 2020/7/1 9:54
- * 需要懒加载Fragment继承此类
+ * Created by zjp on 2020/4/30 17:14
  */
-public abstract class BaseLazyFragment<VM extends BaseViewModel>
+public abstract class LBaseFragment<VM extends BaseViewModel>
         extends Fragment implements IBaseView {
 
     protected ImmersionBar mImmersionBar;
-
 
     protected VM mViewModel;
 
@@ -48,29 +44,14 @@ public abstract class BaseLazyFragment<VM extends BaseViewModel>
 
     private boolean isShowedContent = false;
 
-    private boolean isViewCreated; // 界面是否已创建完成
-    private boolean isVisibleToUser; // 是否对用户可见
-    public boolean isDataLoaded; // 数据是否已请求
-
-    /**
-     * 第一次可见时触发调用,此处实现具体的数据请求逻辑
-     */
-    protected abstract void lazyLoadData();
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initImmersionBar();
         View view = inflater.inflate(getLayoutId(), container, false);
-        mLoadService = LoadSir.getDefault().register(view, new Callback.OnReloadListener() {
-            @Override
-            public void onReload(View v) {
-
-            }
-        });
         if (this instanceof IEventBus)
             EventBus.getDefault().register(this);
-        return mLoadService.getLoadLayout();
+        return view;
     }
 
     @Override
@@ -80,48 +61,6 @@ public abstract class BaseLazyFragment<VM extends BaseViewModel>
         getLifecycle().addObserver(mViewModel);
         initView();
         initData();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        this.isVisibleToUser = isVisibleToUser;
-        tryLoadData();
-    }
-
-    /**
-     * 保证在initData后触发
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-        isViewCreated = true;
-        tryLoadData();
-    }
-
-    /**
-     * ViewPager场景下，当前fragment可见时，如果其子fragment也可见，则让子fragment请求数据
-     */
-    private void dispatchParentVisibleState() {
-        FragmentManager fragmentManager = getChildFragmentManager();
-        List<Fragment> fragments = fragmentManager.getFragments();
-        if (fragments.isEmpty()) {
-            return;
-        }
-        for (Fragment child : fragments) {
-            if (child instanceof BaseLazyFragment && ((BaseLazyFragment) child).isVisibleToUser) {
-                ((BaseLazyFragment) child).tryLoadData();
-            }
-        }
-    }
-
-    public void tryLoadData() {
-        if (isViewCreated && isVisibleToUser && !isDataLoaded) {
-            lazyLoadData();
-            isDataLoaded = true;
-            //通知子Fragment请求数据
-            dispatchParentVisibleState();
-        }
     }
 
     protected void initImmersionBar() {
@@ -141,7 +80,8 @@ public abstract class BaseLazyFragment<VM extends BaseViewModel>
             } else {
                 modelClass = BaseViewModel.class;
             }
-            mViewModel = (VM) ViewModelProviders.of(this).get(modelClass);
+//            mViewModel = (VM) ViewModelProviders.of(this).get(modelClass);
+            mViewModel = (VM) new ViewModelProvider(this).get(modelClass);
         }
     }
 
@@ -151,6 +91,19 @@ public abstract class BaseLazyFragment<VM extends BaseViewModel>
 
     protected void initData() {
 
+    }
+
+    /**
+     * 注册LoadSir
+     *
+     * @param view 替换视图
+     */
+    public void setLoadSir(View view) {
+        if (mLoadService == null) {
+            mLoadService = LoadSir.getDefault()
+                    .register(view, (Callback.OnReloadListener) v -> onRetryBtnClick());
+        }
+        showLoading();
     }
 
     @Override
