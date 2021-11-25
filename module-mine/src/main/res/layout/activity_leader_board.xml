@@ -3,15 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="myself_intergral"
-            type="com.ling.common.bean.UserInfo" />
-
-        <import type="android.view.View" />
-
-    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp10"
-                android:visibility="@{myself_intergral!=null?View.VISIBLE:View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
@@ -62,7 +52,6 @@
                     android:layout_height="@dimen/dp30"
                     android:layout_marginLeft="@dimen/dp11"
                     android:gravity="center"
-                    android:text="@{myself_intergral.rank}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp13"
                     android:textStyle="bold"
@@ -75,7 +64,6 @@
                     style="@style/textview_14sp_style"
                     android:layout_marginLeft="40dp"
                     android:gravity="center"
-                    android:text="@{myself_intergral.username}"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_rank"
                     app:layout_constraintLeft_toRightOf="@+id/tv_rank"
@@ -86,7 +74,6 @@
                     android:id="@+id/tv_integral"
                     style="@style/textview_14sp_style"
                     android:gravity="center"
-                    android:text="@{myself_intergral.coinCount}"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_rank"

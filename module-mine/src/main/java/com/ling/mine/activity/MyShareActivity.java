@@ -5,28 +5,28 @@ import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.common.adapter.ArticleListAdapter;
 import com.ling.common.bean.ArticleEntity;
 import com.ling.common.bean.page.PageInfo;
 import com.ling.common.utils.CustomItemDecoration;
+import com.ling.common.view.CommonHeadTitle;
 import com.ling.mine.R;
-import com.ling.mine.databinding.ActivityMyshareBinding;
 import com.ling.mine.viewmodel.MineViewModel;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.List;
 
-/**
- * Created by zjp on 2020/8/1 16:16.
- */
-public class MyShareActivity extends BaseActivity<ActivityMyshareBinding, MineViewModel>
+public class MyShareActivity extends LBaseActivity<MineViewModel>
         implements OnRefreshLoadMoreListener {
-
     private ArticleListAdapter articleListAdapter;
     private PageInfo pageInfo;
+    private RecyclerView recy;
+    private RefreshLayout refresh;
+    private CommonHeadTitle titleview;
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, MyShareActivity.class));
@@ -48,18 +48,21 @@ public class MyShareActivity extends BaseActivity<ActivityMyshareBinding, MineVi
     @Override
     protected void initView() {
         super.initView();
+        titleview = findViewById(R.id.titleview);
+        recy = findViewById(R.id.recy);
+        refresh = findViewById(R.id.refresh);
 
-        mViewDataBinding.titleview.setTitle("我的分享");
-        mViewDataBinding.titleview.getIvRight().setImageResource(R.mipmap.add);
-        mViewDataBinding.titleview.setIvRightVisible(View.VISIBLE);
-        mViewDataBinding.baseRefresh.recy.addItemDecoration(new CustomItemDecoration(this,
+        titleview.setTitle("我的分享");
+        titleview.getIvRight().setImageResource(R.mipmap.add);
+        titleview.setIvRightVisible(View.VISIBLE);
+        recy.addItemDecoration(new CustomItemDecoration(this,
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
-        mViewDataBinding.baseRefresh.recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
-        mViewDataBinding.baseRefresh.refresh.setOnRefreshLoadMoreListener(this);
+        recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
+        refresh.setOnRefreshLoadMoreListener(this);
 
         getData();
 
-        mViewDataBinding.titleview.getIvRight().setOnClickListener(view -> AddArticleActivity.start(MyShareActivity.this));
+        titleview.getIvRight().setOnClickListener(view -> AddArticleActivity.start(MyShareActivity.this));
     }
 
     @Override
@@ -67,9 +70,9 @@ public class MyShareActivity extends BaseActivity<ActivityMyshareBinding, MineVi
         super.initData();
 
         mViewModel.userCenterLiveData.observe(this, userCenter -> {
-            if (mViewDataBinding.baseRefresh.refresh.getState().isOpening) {
-                mViewDataBinding.baseRefresh.refresh.finishRefresh();
-                mViewDataBinding.baseRefresh.refresh.finishLoadMore();
+            if (refresh.getState().isOpening) {
+                refresh.finishRefresh();
+                refresh.finishLoadMore();
             }
             pageInfo.nextPage();
 
@@ -93,27 +96,9 @@ public class MyShareActivity extends BaseActivity<ActivityMyshareBinding, MineVi
                 articleListAdapter.addData(dataList);
             }
             if (shareArticles.isOver()) {
-                mViewDataBinding.baseRefresh.refresh.finishLoadMoreWithNoMoreData();
+                refresh.finishLoadMoreWithNoMoreData();
             }
         });
-//        mViewModel.userCenterLiveData.observe(this, articleEntity -> {
-//            if (mViewDataBinding.baseRefresh.refresh.getState().isOpening) {
-//                mViewDataBinding.baseRefresh.refresh.finishRefresh();
-//                mViewDataBinding.baseRefresh.refresh.finishLoadMore();
-//            }
-//
-//            List<ArticleEntity.DatasBean> dataList = articleEntity.getDatas();
-//
-//            if (dataList != null && dataList.size() > 0) {
-//                for (ArticleEntity.DatasBean articleBean : dataList) {
-//                    articleBean.setCollect(true);
-//                }
-//            }
-//
-//            pageInfo.nextPage();
-//
-//
-//        });
     }
 
     private void loadData() {
@@ -139,7 +124,7 @@ public class MyShareActivity extends BaseActivity<ActivityMyshareBinding, MineVi
 
     private void getData() {
         pageInfo = new PageInfo();
-        setLoadSir(mViewDataBinding.baseRefresh.refresh);
+        setLoadSir((View) refresh);
         loadData();
     }
 }

@@ -1,26 +1,22 @@
 package com.ling.login.fragment;
 
-import android.app.MediaRouteButton;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.navigation.Navigation;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
-import com.ling.base.fragment.BaseFragment;
 import com.ling.base.fragment.LBaseFragment;
 import com.ling.common.storage.MmkvHelper;
 import com.ling.common.textwatcher.SimpleTextWatcher;
 import com.ling.login.R;
 import com.ling.login.activity.LoginActivity;
-import com.ling.login.databinding.FragmentRegisterBinding;
 import com.ling.login.viewmodel.LoginViewModel;
 
 /**

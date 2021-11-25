@@ -2,17 +2,15 @@ package com.ling.mine.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.TextView;
 
 import com.ling.aop.permission.annotation.CheckPermission;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
+import com.ling.common.view.CommonHeadTitle;
 import com.ling.mine.R;
-import com.ling.mine.databinding.ActivityAboutMeBinding;
 import com.ling.mine.viewmodel.MineViewModel;
 
-/**
- * Created by zjp on 2020/08/18 15:51
- */
-public class AboutMeActivity extends BaseActivity<ActivityAboutMeBinding, MineViewModel> {
+public class AboutMeActivity extends LBaseActivity<MineViewModel> {
 
     @Override
     protected void initImmersionBar() {
@@ -34,22 +32,26 @@ public class AboutMeActivity extends BaseActivity<ActivityAboutMeBinding, MineVi
     @Override
     protected void initView() {
         super.initView();
-        mViewDataBinding.titleview.setTitle("关于作者");
+        TextView ivAlipay = findViewById(R.id.iv_alipay);
+        TextView ivWx = findViewById(R.id.iv_wx);
+        CommonHeadTitle titleview = findViewById(R.id.titleview);
+        titleview.setTitle("关于作者");
+        ivAlipay.setOnLongClickListener(view -> {
+            saveAliQrCode();
+            return false;
+        });
+
+        ivWx.setOnLongClickListener(view -> {
+            saveWxQrCode();
+            return false;
+        });
     }
 
     @Override
     protected void initData() {
         super.initData();
 
-        mViewDataBinding.ivAlipay.setOnLongClickListener(view -> {
-            saveAliQrCode();
-            return false;
-        });
 
-        mViewDataBinding.ivWx.setOnLongClickListener(view -> {
-            saveWxQrCode();
-            return false;
-        });
     }
 
     @CheckPermission(permissions = {

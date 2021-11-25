@@ -1,7 +1,5 @@
 package com.ling.square.fragment;
 
-import android.app.AlertDialog;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ling.base.fragment.BaseLazyFragment;
@@ -9,7 +7,6 @@ import com.ling.common.bean.ProjectTabBean;
 import com.ling.square.R;
 import com.ling.square.activity.SystemActivity;
 import com.ling.square.adapter.SystemListAdapter;
-import com.ling.square.databinding.FragmentListSystemBinding;
 import com.ling.square.viewmodel.SquareViewModel;
 
 /**

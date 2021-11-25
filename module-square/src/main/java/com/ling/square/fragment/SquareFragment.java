@@ -1,6 +1,5 @@
 package com.ling.square.fragment;
 
-import android.app.ActionBar;
 import android.os.Build;
 import android.view.View;
 
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ling.base.fragment.BaseFragment;
 import com.ling.base.fragment.LBaseFragment;
 import com.ling.base.router.RouterFragmentPath;
 import com.ling.base.viewmodel.BaseViewModel;
@@ -17,7 +15,6 @@ import com.ling.common.adapter.TabPagerAdapter;
 import com.ling.common.callback.OnTabClickListener;
 import com.ling.common.callback.TabPagerListener;
 import com.ling.square.R;
-import com.ling.square.databinding.FragmentSquareFragmentBinding;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;

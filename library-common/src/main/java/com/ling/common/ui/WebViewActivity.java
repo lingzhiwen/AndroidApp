@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.Html;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -13,18 +14,20 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
 import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.base.viewmodel.BaseViewModel;
 import com.ling.common.R;
-import com.ling.common.databinding.ActivityWebviewBinding;
+import com.ling.common.view.CommonHeadTitle;
 import com.ling.common.view.WebLayout;
 
 /**
  * Created by zjp on 2020/6/2 13:38
  */
-public class WebViewActivity extends BaseActivity<ActivityWebviewBinding, BaseViewModel> {
+public class WebViewActivity extends LBaseActivity<BaseViewModel> {
 
     private String mTitle, links;
+    private ViewGroup container;
+    private CommonHeadTitle headTitle;
 
     @Override
     protected void initImmersionBar() {
@@ -49,13 +52,15 @@ public class WebViewActivity extends BaseActivity<ActivityWebviewBinding, BaseVi
     @Override
     protected void initView() {
         super.initView();
+        container = findViewById(R.id.container);
+        headTitle = findViewById(R.id.title);
         if (getIntent() != null) {
             links = getIntent().getStringExtra("link");
             mTitle = getIntent().getStringExtra("title");
         }
 
         AgentWeb.with(this)
-                .setAgentWebParent(mViewDataBinding.container, new LinearLayout.LayoutParams(-1, -1))
+                .setAgentWebParent(container, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .setWebChromeClient(mWebChromeClient)
                 .setWebViewClient(mWebViewClient)
@@ -86,8 +91,7 @@ public class WebViewActivity extends BaseActivity<ActivityWebviewBinding, BaseVi
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
-//            mViewDataBinding.title.setTitle(mTitle);
-            mViewDataBinding.title.setTitle(Html.fromHtml(mTitle) + "");
+            headTitle.setTitle(Html.fromHtml(mTitle) + "");
         }
     };
 

@@ -7,30 +7,37 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.common.bean.UserInfo;
 import com.ling.common.bean.page.PageInfo;
 import com.ling.common.storage.MmkvHelper;
 import com.ling.common.ui.WebViewActivity;
+import com.ling.common.view.CommonHeadTitle;
 import com.ling.mine.R;
 import com.ling.mine.adapter.MyIntergralAdapter;
-import com.ling.mine.databinding.ActivityMyIntergralBinding;
 import com.ling.mine.viewmodel.MineViewModel;
 import com.ling.network.constant.C;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.List;
 
 /**
  * Created by zjp on 2020/07/15 17:07
  */
-public class MyIntergralActivity extends BaseActivity<ActivityMyIntergralBinding, MineViewModel>
+public class MyIntergralActivity extends LBaseActivity<MineViewModel>
         implements OnLoadMoreListener {
 
     private PageInfo pageInfo;
     private MyIntergralAdapter myIntergralAdapter;
+    private RecyclerView rvIntergralList;
+    private View rootview;
+    private RefreshLayout smartRefresh;
+    private AppCompatTextView tvIntegralAnim;
+    private CommonHeadTitle titleview;
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, MyIntergralActivity.class));
@@ -39,9 +46,7 @@ public class MyIntergralActivity extends BaseActivity<ActivityMyIntergralBinding
     @Override
     protected void initImmersionBar() {
         super.initImmersionBar();
-        mImmersionBar
-                .statusBarDarkFont(true)
-                .init();
+        mImmersionBar.statusBarDarkFont(true).init();
     }
 
     @Override
@@ -52,12 +57,18 @@ public class MyIntergralActivity extends BaseActivity<ActivityMyIntergralBinding
     @Override
     protected void initView() {
         super.initView();
-        mViewDataBinding.titleview.setTitle("我的积分");
-        mViewDataBinding.titleview.getIvRight().setImageResource(R.mipmap.ic_guize);
-        mViewDataBinding.titleview.setIvRightVisible(View.VISIBLE);
+        titleview = findViewById(R.id.titleview);
+        rvIntergralList = findViewById(R.id.rv_intergral_List);
+        rootview = findViewById(R.id.rootview);
+        smartRefresh = findViewById(R.id.smartRefresh);
+        tvIntegralAnim = findViewById(R.id.tvIntegralAnim);
+
+        titleview.setTitle("我的积分");
+        titleview.getIvRight().setImageResource(R.mipmap.ic_guize);
+        titleview.setIvRightVisible(View.VISIBLE);
         pageInfo = new PageInfo();
-        mViewDataBinding.rvIntergralList.setAdapter(myIntergralAdapter = new MyIntergralAdapter());
-        setLoadSir(mViewDataBinding.rootview);
+        rvIntergralList.setAdapter(myIntergralAdapter = new MyIntergralAdapter());
+        setLoadSir(rootview);
         loadData();
     }
 
@@ -83,14 +94,14 @@ public class MyIntergralActivity extends BaseActivity<ActivityMyIntergralBinding
                 }
 
                 if (leaderboard.isOver()) {
-                    mViewDataBinding.smartRefresh.finishLoadMoreWithNoMoreData();
+                    smartRefresh.finishLoadMoreWithNoMoreData();
                 }
-                mViewDataBinding.smartRefresh.finishLoadMore(true);
+                smartRefresh.finishLoadMore(true);
             }
         });
 
-        mViewDataBinding.smartRefresh.setOnLoadMoreListener(this);
-        mViewDataBinding.titleview.getIvRight().setOnClickListener(view -> {
+        smartRefresh.setOnLoadMoreListener(this);
+        titleview.getIvRight().setOnClickListener(view -> {
             WebViewActivity.start(this, "积分规则", C.INTERGRAL_URL);
         });
     }
@@ -108,7 +119,7 @@ public class MyIntergralActivity extends BaseActivity<ActivityMyIntergralBinding
         valueAnimator.addUpdateListener(valueAnimator1 -> {
             //获取改变后的值
             int currentValue = (int) valueAnimator1.getAnimatedValue();
-            mViewDataBinding.tvIntegralAnim.setText(currentValue + "");
+            tvIntegralAnim.setText(currentValue + "");
         });
         valueAnimator.start();
     }

@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="userInfo"
-            type="com.ling.common.bean.UserInfo" />
-    </data>
-
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/co"
         android:layout_width="match_parent"
@@ -63,7 +56,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
-            android:text="@{userInfo.username}"
             android:textColor="@color/white"
             android:textSize="@dimen/sp18"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -76,7 +68,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:text='@{"ID:"+userInfo.userId}'
             android:textColor="@color/white"
             android:textSize="@dimen/sp14"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -89,7 +80,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:paddingBottom="@dimen/dp10"
-            android:text='@{"积分："+userInfo.coinCount+"\t排名："+userInfo.rank}'
             android:textColor="@color/white"
             android:textSize="@dimen/sp14"
             app:layout_constraintLeft_toLeftOf="parent"

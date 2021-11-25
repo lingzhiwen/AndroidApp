@@ -74,21 +74,12 @@ android {
         }
     }
 
-//    applicationVariants.all { variant ->
-//        if (variant.buildType.name == 'release') {
-//            variant.mergedFlavor.versionCode = gitVersionCode()
-//            variant.mergedFlavor.versionName = gitVersionTag()
-//        }
-//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {

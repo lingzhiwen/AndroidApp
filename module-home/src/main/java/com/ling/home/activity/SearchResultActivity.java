@@ -16,27 +16,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.common.adapter.ArticleListAdapter;
 import com.ling.common.bean.ArticleEntity;
 import com.ling.common.bean.page.PageInfo;
 import com.ling.common.ui.WebViewActivity;
 import com.ling.common.utils.CustomItemDecoration;
 import com.ling.home.R;
-import com.ling.home.databinding.ActivitySearchresultBinding;
 import com.ling.home.viewmodel.SearchViewModel;
 import com.ling.network.constant.C;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
-import java.text.BreakIterator;
 import java.util.List;
 
 /**
  * Created by zjp on 2020/6/4 10:34
  */
-public class SearchResultActivity extends BaseActivity<ActivitySearchresultBinding, SearchViewModel> {
+public class SearchResultActivity extends LBaseActivity<SearchViewModel> {
 
     private String keyword;
     private PageInfo pageInfo;

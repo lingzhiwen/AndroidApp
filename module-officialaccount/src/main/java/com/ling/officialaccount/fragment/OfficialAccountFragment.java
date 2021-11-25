@@ -1,6 +1,5 @@
 package com.ling.officialaccount.fragment;
 
-import android.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.gyf.immersionbar.ImmersionBar;
-import com.ling.base.fragment.BaseFragment;
 import com.ling.base.fragment.LBaseFragment;
 import com.ling.base.router.RouterFragmentPath;
 import com.ling.common.bean.ArticleEntity;
@@ -20,11 +18,9 @@ import com.ling.common.utils.CustomItemDecoration;
 import com.ling.officialaccount.R;
 import com.ling.officialaccount.adapter.CategoryAdapter;
 import com.ling.officialaccount.adapter.OfficialAccountListAdapter;
-import com.ling.officialaccount.databinding.FragmentOfficialAccountFragmentBinding;
 import com.ling.officialaccount.viewmodel.OfficialAccountViewModel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 

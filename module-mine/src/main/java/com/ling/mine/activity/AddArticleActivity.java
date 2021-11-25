@@ -5,22 +5,24 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.common.storage.MmkvHelper;
+import com.ling.common.view.CommonHeadTitle;
 import com.ling.mine.R;
-import com.ling.mine.databinding.ActivityAddarticleBinding;
 import com.ling.mine.viewmodel.MineViewModel;
 
-/**
- * Created by zjp on 2020/08/05 16:31
- */
-public class AddArticleActivity extends BaseActivity<ActivityAddarticleBinding, MineViewModel> {
+public class AddArticleActivity extends LBaseActivity<MineViewModel> {
+
+    private AppCompatEditText etShareTitle;
+    private AppCompatEditText etShareUrl;
 
     @Override
     protected void initImmersionBar() {
@@ -42,11 +44,15 @@ public class AddArticleActivity extends BaseActivity<ActivityAddarticleBinding, 
     @Override
     protected void initView() {
         super.initView();
-        mViewDataBinding.titleview.setTitle("添加文章");
-        mViewDataBinding.titleview.getIvRight().setImageResource(R.mipmap.ic_guize);
-        mViewDataBinding.titleview.setIvRightVisible(View.VISIBLE);
-        mViewDataBinding.shareUsername.setText(MmkvHelper.getInstance().getUserInfo().getUsername());
-        mViewDataBinding.titleview.getIvRight().setOnClickListener(view -> {
+        CommonHeadTitle titleview = findViewById(R.id.titleview);
+        TextView shareUsername = findViewById(R.id.share_username);
+        etShareTitle = findViewById(R.id.et_share_title);
+        etShareUrl =findViewById(R.id.et_share_url);
+        titleview.setTitle("添加文章");
+        titleview.getIvRight().setImageResource(R.mipmap.ic_guize);
+        titleview.setIvRightVisible(View.VISIBLE);
+        shareUsername.setText(MmkvHelper.getInstance().getUserInfo().getUsername());
+        titleview.getIvRight().setOnClickListener(view -> {
 
             View dialogView = LayoutInflater.from(AddArticleActivity.this).inflate(R.layout.bottom_sheet_dialog_warm_tip, null);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(AddArticleActivity.this, R.style.BottomSheetDialog);
@@ -65,17 +71,6 @@ public class AddArticleActivity extends BaseActivity<ActivityAddarticleBinding, 
             parent.setLayoutParams(layoutParams);
 
             bottomSheetDialog.show();
-
-//                MaterialDialog materialDialog = new MaterialDialog(AddArticleActivity.this, new BottomSheet());
-//                materialDialog.title(R.string.warm_tips, null);
-////                materialDialog.message(R.string.clear_cache, null, null);
-////                DialogCustomViewExtKt.customView(R.layout.base_layout_empty, );
-//                materialDialog.positiveButton(R.string.sure, null, materialDialog1 -> {
-//                    mViewModel.clearCache();
-//                    return null;
-//                }).negativeButton(R.string.cancel, null, materialDialog2 -> {
-//                    return null;
-//                }).show();
         });
     }
 
@@ -86,10 +81,11 @@ public class AddArticleActivity extends BaseActivity<ActivityAddarticleBinding, 
     }
 
     public void share(View view) {
+
         new AlertDialog.Builder(AddArticleActivity.this)
                 .setTitle(R.string.tips)
                 .setMessage(R.string.share_tips)
-                .setPositiveButton(R.string.sure, (dialogInterface, i) -> mViewModel.shareArticle(mViewDataBinding.etShareTitle.getText().toString(), mViewDataBinding.etShareUrl.getText().toString()))
+                .setPositiveButton(R.string.sure, (dialogInterface, i) -> mViewModel.shareArticle(etShareTitle.getText().toString(), etShareUrl.getText().toString()))
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }

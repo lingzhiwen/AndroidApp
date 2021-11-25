@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="opensource"
-            type="com.ling.mine.bean.OpenSourceProj" />
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +14,6 @@
             android:id="@+id/tv_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{opensource.author}"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp16"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -35,7 +27,6 @@
             android:layout_marginTop="5dp"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="@{opensource.content}"
             android:textColor="@color/c_666666"
             android:textSize="@dimen/sp14"
             app:layout_constraintLeft_toLeftOf="parent"

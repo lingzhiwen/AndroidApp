@@ -16,9 +16,6 @@ import com.ling.home.bean.BannerEntity;
 
 import java.util.List;
 
-/**
- * Created by zjp on 2020/5/11 16:45
- */
 public class HomeHeadBannerAdapter extends BannerAdapter<BannerEntity, HomeHeadBannerAdapter.ImageTitleHolder> {
 
     public HomeHeadBannerAdapter(List<BannerEntity> bannerEntities) {

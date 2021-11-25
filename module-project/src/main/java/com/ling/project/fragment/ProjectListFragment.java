@@ -17,7 +17,6 @@ import com.ling.common.ui.WebViewActivity;
 import com.ling.common.utils.CustomItemDecoration;
 import com.ling.network.constant.C;
 import com.ling.project.R;
-import com.ling.project.databinding.FragmentProjectListBinding;
 import com.ling.project.viewmodel.ProjectViewModel;
 
 

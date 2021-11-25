@@ -2,30 +2,32 @@ package com.ling.mine.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.ling.base.activity.BaseActivity;
+import com.ling.base.activity.LBaseActivity;
 import com.ling.common.adapter.ArticleListAdapter;
 import com.ling.common.bean.ArticleEntity;
 import com.ling.common.bean.UserInfo;
 import com.ling.common.bean.page.PageInfo;
 import com.ling.common.utils.CustomItemDecoration;
+import com.ling.common.view.CommonHeadTitle;
 import com.ling.mine.R;
-import com.ling.mine.databinding.ActivityUsercenter1Binding;
 import com.ling.mine.viewmodel.MineViewModel;
 import com.ling.network.constant.C;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.List;
 
-/**
- * Created by zjp on 2020/7/17 21:54.
- */
-public class UserCenterActivity extends BaseActivity<ActivityUsercenter1Binding, MineViewModel> implements OnLoadMoreListener {
+public class UserCenterActivity extends LBaseActivity<MineViewModel> implements OnLoadMoreListener {
 
     private String userId;
     private PageInfo pageInfo;
@@ -36,6 +38,14 @@ public class UserCenterActivity extends BaseActivity<ActivityUsercenter1Binding,
      * 避免重复点击产生的bug
      */
     private boolean lockCollectClick = true;
+    private RecyclerView recy;
+    private SmartRefreshLayout smart;
+    private CommonHeadTitle titleview;
+    private MotionLayout co;
+    private View ivBackLeft;
+    private TextView tv_name;
+    private TextView tv_id;
+    private TextView tv_rank;
 
     @Override
     protected void initImmersionBar() {
@@ -60,23 +70,32 @@ public class UserCenterActivity extends BaseActivity<ActivityUsercenter1Binding,
     @Override
     protected void initView() {
         super.initView();
+        titleview = findViewById(R.id.titleview);
+        recy = findViewById(R.id.recy);
+        smart = findViewById(R.id.smart);
+        co = findViewById(R.id.co);
+        tv_name = findViewById(R.id.tv_name);
+        tv_id = findViewById(R.id.tv_id);
+        tv_rank = findViewById(R.id.tv_rank);
+        ivBackLeft = findViewById(R.id.iv_back_left);
         Intent intent = getIntent();
         if (null != intent) {
             userId = intent.getStringExtra(C.USERID);
         }
         pageInfo = new PageInfo();
-        mViewDataBinding.recy.setLayoutManager(new LinearLayoutManager(this));
-        mViewDataBinding.recy.addItemDecoration(new CustomItemDecoration(this,
+        recy.setLayoutManager(new LinearLayoutManager(this));
+        recy.addItemDecoration(new CustomItemDecoration(this,
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
-        mViewDataBinding.recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
-        mViewDataBinding.co.setPadding(0, ImmersionBar.getStatusBarHeight(this), 0, 0);
-        setLoadSir(mViewDataBinding.co);
+        recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
+        co.setPadding(0, ImmersionBar.getStatusBarHeight(this), 0, 0);
+        setLoadSir(co);
         loadData();
     }
 
     @Override
     protected void initData() {
         super.initData();
+
         mViewModel.userCenterLiveData.observe(this, userCenter -> {
             if (userCenter != null) {
                 ArticleEntity shareArticles = userCenter.getShareArticles();
@@ -84,7 +103,9 @@ public class UserCenterActivity extends BaseActivity<ActivityUsercenter1Binding,
                 pageInfo.nextPage();
                 if (shareArticles.getCurPage() == 1) {
                     UserInfo coinInfo = userCenter.getCoinInfo();
-                    mViewDataBinding.setUserInfo(coinInfo);
+                    tv_name.setText(coinInfo.getUsername());
+                    tv_id.setText(coinInfo.getUserId());
+                    tv_rank.setText(coinInfo.getRank()+"积分:"+coinInfo.getCoinCount());
                     if (datas != null && datas.size() > 0) {
                         showContent();
                         articleListAdapter.setList(datas);
@@ -96,10 +117,10 @@ public class UserCenterActivity extends BaseActivity<ActivityUsercenter1Binding,
                 }
 
                 if (shareArticles.isOver()) {
-                    mViewDataBinding.smart.finishLoadMoreWithNoMoreData();
+                    smart.finishLoadMoreWithNoMoreData();
                 }
-                mViewDataBinding.smart.finishRefresh(true);
-                mViewDataBinding.smart.finishLoadMore(true);
+                smart.finishRefresh(true);
+                smart.finishLoadMore(true);
             }
         });
 
@@ -123,8 +144,8 @@ public class UserCenterActivity extends BaseActivity<ActivityUsercenter1Binding,
             }
         });
 
-        mViewDataBinding.ivBackLeft.setOnClickListener(view -> finish());
-        mViewDataBinding.smart.setOnLoadMoreListener(this);
+        ivBackLeft.setOnClickListener(view -> finish());
+        smart.setOnLoadMoreListener(this);
         articleListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId() == R.id.iv_collect) {
                 collectArticle(position);
@@ -152,4 +173,5 @@ public class UserCenterActivity extends BaseActivity<ActivityUsercenter1Binding,
             }
         }
     }
+
 }

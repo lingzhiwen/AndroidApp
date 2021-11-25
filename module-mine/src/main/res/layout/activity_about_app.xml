@@ -3,16 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="eventlistener"
-            type="com.ling.mine.activity.AboutAppActivity.EventListener" />
-
-        <variable
-            name="url"
-            type="com.ling.network.constant.C" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -58,7 +48,6 @@
             android:layout_marginTop="@dimen/dp50"
             android:background="@drawable/ripple_bg"
             android:gravity="center"
-            android:onClick="@{()->eventlistener.clickWebUrl(url.BASE_URL)}"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp16"
             android:paddingRight="@dimen/dp16"
@@ -88,7 +77,6 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/ripple_bg"
             android:gravity="center"
-            android:onClick="@{()->eventlistener.clickWebContent(url.URL_ABOUT)}"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp16"
             android:paddingRight="@dimen/dp16"
@@ -118,7 +106,6 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/ripple_bg"
             android:gravity="center"
-            android:onClick="@{()->eventlistener.clickWebGithub(url.SOURCE_URL)}"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp16"
             android:paddingRight="@dimen/dp16"

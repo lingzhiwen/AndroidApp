@@ -1,7 +1,6 @@
 package com.ling.project.fragment;
 
 
-import android.app.ActionBar;
 import android.os.Build;
 import android.view.View;
 
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ling.base.fragment.BaseFragment;
 import com.ling.base.fragment.LBaseFragment;
 import com.ling.base.router.RouterFragmentPath;
 import com.ling.common.adapter.TabNavigatorAdapter;
@@ -20,7 +18,6 @@ import com.ling.common.callback.TabPagerListener;
 import com.ling.common.storage.MmkvHelper;
 import com.ling.network.constant.C;
 import com.ling.project.R;
-import com.ling.project.databinding.FragmentProjectFragmentBinding;
 import com.ling.project.viewmodel.ProjectViewModel;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
