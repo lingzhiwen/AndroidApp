@@ -24,7 +24,7 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by zjp on 2020/5/11 14:37
+ * Created by ling on 2020/5/11 14:37
  */
 public class HomeViewModel extends BaseViewModel {
 

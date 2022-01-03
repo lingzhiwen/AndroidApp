@@ -3,7 +3,7 @@ package com.ling.officialaccount.fragment;
 import com.ling.base.fragment.BaseLazyFragment;
 
 /**
- * Created by zjp on 2020/8/23 16:03.
+ * Created by ling on 2020/8/23 16:03.
  */
 public class OfficialAccountListFragment extends BaseLazyFragment {
 

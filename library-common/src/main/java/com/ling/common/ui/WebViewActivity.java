@@ -21,7 +21,7 @@ import com.ling.common.view.CommonHeadTitle;
 import com.ling.common.view.WebLayout;
 
 /**
- * Created by zjp on 2020/6/2 13:38
+ * Created by ling on 2020/6/2 13:38
  */
 public class WebViewActivity extends LBaseActivity<BaseViewModel> {
 

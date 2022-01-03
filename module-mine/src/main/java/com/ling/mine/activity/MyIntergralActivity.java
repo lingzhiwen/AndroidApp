@@ -26,7 +26,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/07/15 17:07
+ * Created by ling on 2020/07/15 17:07
  */
 public class MyIntergralActivity extends LBaseActivity<MineViewModel>
         implements OnLoadMoreListener {

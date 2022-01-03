@@ -29,7 +29,7 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by zjp on 2020/08/21 11:09
+ * Created by ling on 2020/08/21 11:09
  */
 public class OfficialAccountViewModel extends BaseViewModel {
 

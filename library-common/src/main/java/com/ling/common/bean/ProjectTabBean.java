@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/7/1 10:53
+ * Created by ling on 2020/7/1 10:53
  */
 public class ProjectTabBean implements Serializable {
 

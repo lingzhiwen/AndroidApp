@@ -9,7 +9,7 @@ import com.ling.home.databinding.AdapterSearchHistoryItemBinding;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by zjp on 2020/5/29 17:20
+ * Created by ling on 2020/5/29 17:20
  */
 public class HomeSearchHistoryAdapter extends BaseQuickAdapter<String, BaseViewHolder>  {
 

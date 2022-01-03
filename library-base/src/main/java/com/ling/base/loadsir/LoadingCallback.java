@@ -7,7 +7,7 @@ import com.kingja.loadsir.callback.Callback;
 import com.ling.base.R;
 
 /**
- * Created by zjp on 2020/5/15 13:37
+ * Created by ling on 2020/5/15 13:37
  */
 public class LoadingCallback extends Callback {
 

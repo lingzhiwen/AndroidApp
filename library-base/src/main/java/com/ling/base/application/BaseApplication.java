@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import com.ling.base.manager.AppManager;
 
 /**
- * Created by zjp on 2020/4/30 16:35
+ * Created by ling on 2020/4/30 16:35
  */
 public class BaseApplication extends Application {
 

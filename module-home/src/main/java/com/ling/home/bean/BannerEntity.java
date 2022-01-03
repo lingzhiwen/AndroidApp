@@ -1,7 +1,7 @@
 package com.ling.home.bean;
 
 /**
- * Created by zjp on 2020/5/11 14:35
+ * Created by ling on 2020/5/11 14:35
  */
 public class BannerEntity {
 

@@ -31,7 +31,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Created by zjp on 2020/4/30 17:14
+ * Created by ling on 2020/4/30 17:14
  */
 public abstract class LBaseFragment<VM extends BaseViewModel>
         extends Fragment implements IBaseView {

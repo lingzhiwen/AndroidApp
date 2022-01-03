@@ -27,7 +27,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by zjp on 2020/07/07 15:55
+ * Created by ling on 2020/07/07 15:55
  */
 public class MineViewModel extends BaseViewModel {
 

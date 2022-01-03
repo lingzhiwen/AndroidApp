@@ -22,7 +22,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 /**
- * Created by zjp on 2020/7/15 22:15.
+ * Created by ling on 2020/7/15 22:15.
  */
 public class LeaderboardActivity extends LBaseActivity<MineViewModel> implements OnRefreshLoadMoreListener {
     private PageInfo pageInfo;

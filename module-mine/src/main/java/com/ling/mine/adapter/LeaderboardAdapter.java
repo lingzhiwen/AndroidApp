@@ -8,7 +8,7 @@ import com.ling.mine.R;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by zjp on 2020/7/15 22:42.
+ * Created by ling on 2020/7/15 22:42.
  */
 public class LeaderboardAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {
 

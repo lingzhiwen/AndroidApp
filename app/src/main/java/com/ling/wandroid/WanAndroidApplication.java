@@ -5,7 +5,7 @@ import com.ling.base.config.ModuleLifecycleConfig;
 import com.ling.wandroid.BuildConfig;
 
 /**
- * Created by zjp on 2020/4/30 16:33
+ * Created by ling on 2020/4/30 16:33
  */
 public class WanAndroidApplication extends BaseApplication {
 

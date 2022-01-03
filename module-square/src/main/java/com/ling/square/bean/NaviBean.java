@@ -5,7 +5,7 @@ import com.ling.common.bean.ArticleEntity;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/8/20 22:18.
+ * Created by ling on 2020/8/20 22:18.
  */
 public class NaviBean {
 

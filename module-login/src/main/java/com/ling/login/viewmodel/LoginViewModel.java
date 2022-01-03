@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zjp on 2020/5/28 14:32
+ * Created by ling on 2020/5/28 14:32
  */
 public class LoginViewModel extends BaseViewModel {
 

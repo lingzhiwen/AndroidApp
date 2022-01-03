@@ -2,13 +2,15 @@ package com.ling.square.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ling.base.activity.LBaseActivity;
-import com.ling.base.databinding.BaseRefreshLayoutBinding;
 import com.ling.common.view.CommonHeadTitle;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.ling.common.adapter.ArticleListAdapter;
@@ -22,7 +24,7 @@ import com.ling.square.viewmodel.SquareViewModel;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/08/20 16:18
+ * Created by ling on 2020/08/20 16:18
  */
 public class SystemActivity extends LBaseActivity<SquareViewModel>
         implements OnRefreshLoadMoreListener {
@@ -38,7 +40,8 @@ public class SystemActivity extends LBaseActivity<SquareViewModel>
      * 避免重复点击产生的bug
      */
     private boolean lockCollectClick = true;
-    private BaseRefreshLayoutBinding includeRefresh;
+    private SmartRefreshLayout refresh;
+    private RecyclerView recy;
 
     public static void start(Context context, String title, int cid) {
         Intent intent = new Intent(context, SystemActivity.class);
@@ -65,6 +68,9 @@ public class SystemActivity extends LBaseActivity<SquareViewModel>
         super.initView();
         Intent intent = getIntent();
         CommonHeadTitle headTitle = findViewById(R.id.title);
+        View base_refresh_layout = findViewById(R.id.include_refresh);
+        refresh = findViewById(R.id.refresh);
+        recy = findViewById(R.id.recy);
         if (intent != null) {
             String title = intent.getStringExtra(C.TITLE);
             cid = intent.getIntExtra(C.CID, 0);
@@ -72,14 +78,18 @@ public class SystemActivity extends LBaseActivity<SquareViewModel>
         }
 
         pageInfo = new PageInfo();
-        setLoadSir(includeRefresh.refresh);
+        if(refresh !=null){
+            setLoadSir(refresh);
+        }
         loadData();
 
-        includeRefresh.recy.setLayoutManager(new LinearLayoutManager(this));
-        includeRefresh.recy.addItemDecoration(new CustomItemDecoration(this,
+        recy.setLayoutManager(new LinearLayoutManager(this));
+        recy.addItemDecoration(new CustomItemDecoration(this,
                 CustomItemDecoration.ItemDecorationDirection.VERTICAL_LIST, R.drawable.linear_split_line));
-        includeRefresh.recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
-        includeRefresh.refresh.setOnRefreshLoadMoreListener(this);
+        recy.setAdapter(articleListAdapter = new ArticleListAdapter(null));
+        if(refresh !=null) {
+            refresh.setOnRefreshLoadMoreListener(this);
+        }
     }
 
     @Override
@@ -87,9 +97,10 @@ public class SystemActivity extends LBaseActivity<SquareViewModel>
         super.initData();
 
         mViewModel.mArticleMuTable.observe(this, articleEntity -> {
-            if (includeRefresh.refresh.getState().isOpening) {
-                includeRefresh.refresh.finishRefresh();
-                includeRefresh.refresh.finishLoadMore();
+
+            if (refresh!=null && refresh.getState().isOpening) {
+                refresh.finishRefresh();
+                refresh.finishLoadMore();
             }
 
             List<ArticleEntity.DatasBean> dataList = articleEntity.getDatas();
@@ -112,7 +123,7 @@ public class SystemActivity extends LBaseActivity<SquareViewModel>
                 articleListAdapter.addData(dataList);
             }
             if (articleEntity.isOver()) {
-                includeRefresh.refresh.finishLoadMoreWithNoMoreData();
+                refresh.finishLoadMoreWithNoMoreData();
             }
         });
 

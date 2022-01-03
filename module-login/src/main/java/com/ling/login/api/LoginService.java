@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
- * Created by zjp on 2020/5/28 14:34
+ * Created by ling on 2020/5/28 14:34
  */
 public interface LoginService {
 

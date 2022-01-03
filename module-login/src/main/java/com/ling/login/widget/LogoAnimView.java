@@ -14,7 +14,7 @@
 //
 //
 ///**
-// * Created by zjp on 2020/5/18 13:53
+// * Created by ling on 2020/5/18 13:53
 // */
 //public class LogoAnimView extends FrameLayout implements Runnable {
 //

@@ -19,7 +19,7 @@ import com.ling.mine.viewmodel.MineViewModel;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Created by zjp on 2020/7/7 21:46.
+ * Created by ling on 2020/7/7 21:46.
  */
 public class SettingActivity extends LBaseActivity<MineViewModel> {
     private CommonHeadTitle titleview;

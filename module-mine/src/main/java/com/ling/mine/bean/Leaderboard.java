@@ -5,7 +5,7 @@ import com.ling.common.bean.UserInfo;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/7/15 22:31.
+ * Created by ling on 2020/7/15 22:31.
  */
 public class Leaderboard {
 

@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 /**
- * Created by zjp on 2020/08/21 11:32
+ * Created by ling on 2020/08/21 11:32
  */
 public interface OfficialAccountService {
 

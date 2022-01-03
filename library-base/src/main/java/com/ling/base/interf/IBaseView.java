@@ -1,7 +1,7 @@
 package com.ling.base.interf;
 
 /**
- * Created by zjp on 2020/4/30 16:12
+ * Created by ling on 2020/4/30 16:12
  */
 public interface IBaseView {
 

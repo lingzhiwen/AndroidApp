@@ -15,7 +15,7 @@ import com.ling.login.R;
 import com.ling.login.fragment.LoginFragment;
 
 /**
- * Created by zjp on 2020/5/16 23:24.
+ * Created by ling on 2020/5/16 23:24.
  */
 @Route(path = RouterActivityPath.Login.PAGER_LOGIN)
 public class LoginActivity extends LBaseActivity<BaseViewModel> {

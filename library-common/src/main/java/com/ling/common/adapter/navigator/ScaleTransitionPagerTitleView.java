@@ -8,7 +8,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 
 
 /**
- * Created by zjp on 2020/7/1 13:40
+ * Created by ling on 2020/7/1 13:40
  */
 public class ScaleTransitionPagerTitleView extends ColorTransitionPagerTitleView {
 

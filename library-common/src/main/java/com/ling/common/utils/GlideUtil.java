@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
- * Created by zjp on 2020/5/11 16:48
+ * Created by ling on 2020/5/11 16:48
  */
 public class GlideUtil {
 

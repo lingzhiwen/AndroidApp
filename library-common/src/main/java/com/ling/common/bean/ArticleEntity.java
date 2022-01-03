@@ -8,7 +8,7 @@ import com.ling.network.constant.C;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/5/12 11:18
+ * Created by ling on 2020/5/12 11:18
  */
 public class ArticleEntity {
 

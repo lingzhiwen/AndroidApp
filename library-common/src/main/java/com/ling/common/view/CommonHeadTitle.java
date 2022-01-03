@@ -17,7 +17,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.ling.common.R;
 
 /**
- * Created by zjp on 2020/5/18 11:18
+ * Created by ling on 2020/5/18 11:18
  */
 public class CommonHeadTitle extends FrameLayout {
 

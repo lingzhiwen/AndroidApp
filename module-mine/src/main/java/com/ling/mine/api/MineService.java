@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
- * Created by zjp on 2020/07/07 15:56
+ * Created by ling on 2020/07/07 15:56
  */
 public interface MineService {
 

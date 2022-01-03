@@ -31,7 +31,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/7/1 9:54
+ * Created by ling on 2020/7/1 9:54
  * 需要懒加载Fragment继承此类
  */
 public abstract class BaseLazyFragment<VM extends BaseViewModel>

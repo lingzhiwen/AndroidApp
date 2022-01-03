@@ -1,7 +1,7 @@
 package com.ling.network.bean;
 
 /**
- * Created by zjp on 2020/5/11 14:32
+ * Created by ling on 2020/5/11 14:32
  */
 public class BaseResponse<T> {
 

@@ -12,7 +12,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**
- * Created by zjp on 2020/07/07 17:17
+ * Created by ling on 2020/07/07 17:17
  */
 @Aspect
 public class CheckLoginAspect {

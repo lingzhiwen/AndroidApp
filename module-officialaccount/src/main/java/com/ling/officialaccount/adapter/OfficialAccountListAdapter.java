@@ -8,7 +8,7 @@ import com.ling.officialaccount.R;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by zjp on 2020/8/23 10:09.
+ * Created by ling on 2020/8/23 10:09.
  */
 public class OfficialAccountListAdapter extends BaseQuickAdapter<ArticleEntity.DatasBean, BaseViewHolder> {
 

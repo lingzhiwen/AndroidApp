@@ -1,7 +1,7 @@
 package com.ling.home.bean;
 
 /**
- * Created by zjp on 2020/6/1 11:25
+ * Created by ling on 2020/6/1 11:25
  */
 public class HotSearchEntity {
 

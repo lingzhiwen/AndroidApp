@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by zjp on 2020/07/06 17:01
+ * Created by ling on 2020/07/06 17:01
  * 水波纹效果
  * 参考：https://www.jianshu.com/p/de127bdbed04
  * https://blog.csdn.net/chen_zhen1234/article/details/75271867

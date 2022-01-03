@@ -28,7 +28,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Created by zjp on 2020/4/30 16:12
+ * Created by ling on 2020/4/30 16:12
  */
 public abstract class LBaseActivity<VM extends BaseViewModel>
         extends AppCompatActivity implements IBaseView {

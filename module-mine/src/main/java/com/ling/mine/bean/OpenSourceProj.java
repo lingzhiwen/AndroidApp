@@ -1,7 +1,7 @@
 package com.ling.mine.bean;
 
 /**
- * Created by zjp on 2020/08/03 16:00
+ * Created by ling on 2020/08/03 16:00
  */
 public class OpenSourceProj {
 

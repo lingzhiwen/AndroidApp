@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by zjp on 2020/4/30 16:14
+ * Created by ling on 2020/4/30 16:14
  */
 public class BaseViewModel extends AndroidViewModel implements IBaseViewModel, Consumer<Disposable> {
 

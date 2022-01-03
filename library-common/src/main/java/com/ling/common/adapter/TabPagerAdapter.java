@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.ling.common.callback.TabPagerListener;
 
 /**
- * Created by zjp on 2020/7/1 0001 11:14
+ * Created by ling on 2020/7/1 0001 11:14
  */
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 

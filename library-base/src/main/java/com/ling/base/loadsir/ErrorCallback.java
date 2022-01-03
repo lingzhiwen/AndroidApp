@@ -4,7 +4,7 @@ import com.kingja.loadsir.callback.Callback;
 import com.ling.base.R;
 
 /**
- * Created by zjp on 2020/5/15 13:35
+ * Created by ling on 2020/5/15 13:35
  */
 public class ErrorCallback extends Callback {
 

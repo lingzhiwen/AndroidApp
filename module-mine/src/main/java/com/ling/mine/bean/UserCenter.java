@@ -4,7 +4,7 @@ import com.ling.common.bean.ArticleEntity;
 import com.ling.common.bean.UserInfo;
 
 /**
- * Created by zjp on 2020/7/26 16:25.
+ * Created by ling on 2020/7/26 16:25.
  */
 public class UserCenter {
 

@@ -20,7 +20,7 @@ import com.ling.login.activity.LoginActivity;
 import com.ling.login.viewmodel.LoginViewModel;
 
 /**
- * Created by zjp on 2020/5/18 17:30
+ * Created by ling on 2020/5/18 17:30
  */
 public class RegisterFragment extends LBaseFragment<LoginViewModel> {
 

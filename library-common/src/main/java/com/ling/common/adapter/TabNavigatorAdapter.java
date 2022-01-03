@@ -20,7 +20,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import java.util.List;
 
 /**
- * Created by zjp on 2020/7/1 13:39
+ * Created by ling on 2020/7/1 13:39
  */
 public class TabNavigatorAdapter extends CommonNavigatorAdapter {
 

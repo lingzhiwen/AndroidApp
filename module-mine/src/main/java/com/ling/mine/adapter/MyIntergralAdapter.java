@@ -8,7 +8,7 @@ import com.ling.mine.R;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by zjp on 2020/08/19 11:05
+ * Created by ling on 2020/08/19 11:05
  */
 public class MyIntergralAdapter extends BaseQuickAdapter<UserInfo, BaseViewHolder> {
 

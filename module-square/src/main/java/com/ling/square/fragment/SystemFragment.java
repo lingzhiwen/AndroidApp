@@ -10,7 +10,7 @@ import com.ling.square.adapter.SystemListAdapter;
 import com.ling.square.viewmodel.SquareViewModel;
 
 /**
- * Created by zjp on 2020/08/20 14:15
+ * Created by ling on 2020/08/20 14:15
  */
 public class SystemFragment extends BaseLazyFragment<SquareViewModel>
         implements SystemListAdapter.OnItemClickListener {

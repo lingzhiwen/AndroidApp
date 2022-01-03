@@ -3,16 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="category"
-            type="com.ling.common.bean.ProjectTabBean" />
-    </data>
-
 
     <androidx.appcompat.widget.AppCompatTextView
-        select="@{category.select}"
+        android:id="@+id/txt_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -22,7 +15,6 @@
         android:paddingTop="@dimen/dp20"
         android:paddingRight="@dimen/dp10"
         android:paddingBottom="@dimen/dp20"
-        android:text="@{category.name}"
         android:textColor="@color/textcolor_category"
         android:textSize="@dimen/sp13"
         tools:text="测试测试" />

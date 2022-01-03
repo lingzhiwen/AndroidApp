@@ -16,7 +16,7 @@ import com.ling.mine.util.DataUtils;
 import com.ling.mine.viewmodel.MineViewModel;
 
 /**
- * Created by zjp on 2020/7/14 22:44.
+ * Created by ling on 2020/7/14 22:44.
  */
 public class OpenSourceProjActivity extends LBaseActivity<MineViewModel> {
     private OpenSourceProjAdapter openSourceProjAdapter;

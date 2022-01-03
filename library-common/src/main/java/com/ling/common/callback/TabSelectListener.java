@@ -1,7 +1,7 @@
 package com.ling.common.callback;
 
 /**
- * Created by zjp on 2020/7/1 13:41
+ * Created by ling on 2020/7/1 13:41
  */
 public interface TabSelectListener {
 

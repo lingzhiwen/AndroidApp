@@ -32,7 +32,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/6/4 10:34
+ * Created by ling on 2020/6/4 10:34
  */
 public class SearchResultActivity extends LBaseActivity<SearchViewModel> {
 
@@ -78,7 +78,7 @@ public class SearchResultActivity extends LBaseActivity<SearchViewModel> {
         ViewGroup.LayoutParams layoutParams = viewStatus.getLayoutParams();
         layoutParams.height = ImmersionBar.getStatusBarHeight(this);
         viewStatus.setLayoutParams(layoutParams);
-        setLoadSir(refresh);
+        setLoadSir((View)refresh);
         pageInfo = new PageInfo();
         Intent intent = getIntent();
         if (intent != null) {

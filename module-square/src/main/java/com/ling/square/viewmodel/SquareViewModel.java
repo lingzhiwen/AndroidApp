@@ -19,7 +19,7 @@ import com.ling.square.bean.NaviBean;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/08/20 14:17
+ * Created by ling on 2020/08/20 14:17
  */
 public class SquareViewModel extends BaseViewModel {
 

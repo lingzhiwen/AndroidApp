@@ -18,7 +18,7 @@ import com.ling.network.scheduler.IoMainScheduler;
 import java.util.List;
 
 /**
- * Created by zjp on 2020/6/2 17:01
+ * Created by ling on 2020/6/2 17:01
  */
 public class SearchViewModel extends BaseViewModel {
 

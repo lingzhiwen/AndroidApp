@@ -1,7 +1,7 @@
 package com.ling.base.event;
 
 /**
- * Created by zjp on 2020/7/12 16:51.
+ * Created by ling on 2020/7/12 16:51.
  */
 public class SettingEvent {
 

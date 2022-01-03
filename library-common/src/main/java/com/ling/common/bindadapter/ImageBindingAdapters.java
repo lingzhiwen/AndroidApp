@@ -12,7 +12,7 @@ import com.ling.common.font.Font;
 import com.ling.common.utils.GlideUtil;
 
 /**
- * Created by zjp on 2020/5/11 16:47
+ * Created by ling on 2020/5/11 16:47
  */
 public class ImageBindingAdapters {
 

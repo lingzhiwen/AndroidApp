@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Created by zjp on 2020/4/30 16:45
+ * Created by ling on 2020/4/30 16:45
  */
 public class AppManager {
 

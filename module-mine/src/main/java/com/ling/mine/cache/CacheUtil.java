@@ -3,7 +3,7 @@ package com.ling.mine.cache;
 import com.ling.base.application.BaseApplication;
 
 /**
- * Created by zjp on 2020/07/14 15:05
+ * Created by ling on 2020/07/14 15:05
  */
 public class CacheUtil {
 

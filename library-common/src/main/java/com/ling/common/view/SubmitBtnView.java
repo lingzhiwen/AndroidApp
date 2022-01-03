@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.ling.common.R;
 
 /**
- * Created by zjp on 2020/5/19 21:13.
+ * Created by ling on 2020/5/19 21:13.
  */
 public class SubmitBtnView extends AppCompatButton implements TextWatcher {
 

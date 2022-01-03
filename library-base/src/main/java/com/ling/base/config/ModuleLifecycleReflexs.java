@@ -1,7 +1,7 @@
 package com.ling.base.config;
 
 /**
- * Created by zjp on 2020/5/9 16:36
+ * Created by ling on 2020/5/9 16:36
  */
 public class ModuleLifecycleReflexs {
 

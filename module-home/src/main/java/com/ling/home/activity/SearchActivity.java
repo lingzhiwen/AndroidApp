@@ -34,7 +34,7 @@ import java.util.List;
 
 
 /**
- * Created by zjp on 2020/5/25 21:32.
+ * Created by ling on 2020/5/25 21:32.
  */
 public class SearchActivity extends LBaseActivity<SearchViewModel> {
 

@@ -18,7 +18,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 /**
- * Created by zjp on 2020/08/18 17:12
+ * Created by ling on 2020/08/18 17:12
  */
 @Aspect
 public class CheckPermissionAspect {

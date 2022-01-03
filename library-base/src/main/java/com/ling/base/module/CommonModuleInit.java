@@ -10,7 +10,7 @@ import com.ling.base.loadsir.ErrorCallback;
 import com.ling.base.loadsir.LoadingCallback;
 
 /**
- * Created by zjp on 2020/5/9 16:37
+ * Created by ling on 2020/5/9 16:37
  */
 public class CommonModuleInit implements IModuleInit {
 

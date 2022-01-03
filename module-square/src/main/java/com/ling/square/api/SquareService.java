@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by zjp on 2020/08/20 14:19
+ * Created by ling on 2020/08/20 14:19
  */
 public interface SquareService {
 

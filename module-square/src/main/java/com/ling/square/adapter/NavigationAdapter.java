@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.google.android.flexbox.FlexboxLayout;
 import com.ling.common.bean.ArticleEntity;
 import com.ling.square.R;
@@ -20,9 +21,9 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * Created by zjp on 2020/8/20 22:06.
+ * Created by ling on 2020/8/20 22:06.
  */
-public class NavigationAdapter extends BaseQuickAdapter<NaviBean, BaseDataBindingHolder<AdapterItemNavigationBinding>> {
+public class NavigationAdapter extends BaseQuickAdapter<NaviBean, BaseViewHolder> {
 
     private LayoutInflater layoutInflater = null;
     private Queue<AppCompatTextView> mFlexItemTextViewCaches = new LinkedList<>();
@@ -37,13 +38,9 @@ public class NavigationAdapter extends BaseQuickAdapter<NaviBean, BaseDataBindin
     }
 
     @Override
-    protected void convert(@NotNull BaseDataBindingHolder<AdapterItemNavigationBinding> bindingHolder, NaviBean naviBean) {
-        AdapterItemNavigationBinding dataBinding = bindingHolder.getDataBinding();
-        if (dataBinding != null) {
-            dataBinding.setNavibean(naviBean);
+    protected void convert(@NotNull BaseViewHolder bindingHolder, NaviBean naviBean) {
             List<ArticleEntity.DatasBean> articles = naviBean.getArticles();
-            FlexboxLayout flexLayout = dataBinding.flexLayout;
-//            flexLayout.removeAllViews();  //注释这条属性，用下面onViewRecycled()方法也行
+            FlexboxLayout flexLayout = bindingHolder.getView(R.id.flex_layout);
             for (int i = 0; i < articles.size(); i++) {
                 ArticleEntity.DatasBean datasBean = articles.get(i);
                 AppCompatTextView labelTv = createOrGetCacheTv(flexLayout);
@@ -54,19 +51,6 @@ public class NavigationAdapter extends BaseQuickAdapter<NaviBean, BaseDataBindin
                 });
                 flexLayout.addView(labelTv);
             }
-            dataBinding.executePendingBindings();
-        }
-    }
-
-    @Override
-    public void onViewRecycled(@NonNull BaseDataBindingHolder<AdapterItemNavigationBinding> holder) {
-        super.onViewRecycled(holder);
-        AdapterItemNavigationBinding dataBinding = holder.getDataBinding();
-        FlexboxLayout flexLayout = dataBinding.flexLayout;
-        for (int i = 0; i < flexLayout.getChildCount(); i++) {
-            mFlexItemTextViewCaches.offer((AppCompatTextView) flexLayout.getChildAt(i));
-        }
-        flexLayout.removeAllViews();
     }
 
     private AppCompatTextView createOrGetCacheTv(FlexboxLayout flexboxLayout) {

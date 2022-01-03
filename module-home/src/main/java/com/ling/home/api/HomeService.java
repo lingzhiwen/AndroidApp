@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by zjp on 2020/5/10 14:19.
+ * Created by ling on 2020/5/10 14:19.
  */
 public interface HomeService {
 

@@ -8,7 +8,7 @@ import com.ling.mine.bean.OpenSourceProj;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by zjp on 2020/08/03 16:41
+ * Created by ling on 2020/08/03 16:41
  */
 public class OpenSourceProjAdapter extends BaseQuickAdapter<OpenSourceProj, BaseViewHolder> {
 

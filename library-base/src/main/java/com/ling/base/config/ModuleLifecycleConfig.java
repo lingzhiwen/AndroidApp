@@ -7,7 +7,7 @@ import com.ling.base.module.IModuleInit;
 
 
 /**
- * Created by zjp on 2020/4/14 15:02
+ * Created by ling on 2020/4/14 15:02
  * 类描述: 作为组件生命周期初始化的配置类,通过反射机制,动态调用每个组件初始化逻辑
  */
 public class ModuleLifecycleConfig {
